@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\Models\\Models.csproj",
+      "projectUniqueName": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
       "projectName": "Models",
-      "projectPath": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\Models\\Models.csproj",
+      "projectPath": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
       "packagesPath": "C:\\Users\\jonno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\Models\\obj\\",
+      "outputPath": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\Models\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jonno\\AppData\\Roaming\\NuGet\\NuGet.Config",

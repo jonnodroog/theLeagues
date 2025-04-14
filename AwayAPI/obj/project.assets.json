@@ -3679,11 +3679,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\AwayAPI\\AwayAPI.csproj",
+      "projectUniqueName": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\AwayAPI\\AwayAPI.csproj",
       "projectName": "AwayAPI",
-      "projectPath": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\AwayAPI\\AwayAPI.csproj",
+      "projectPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\AwayAPI\\AwayAPI.csproj",
       "packagesPath": "C:\\Users\\jonno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\AwayAPI\\obj\\",
+      "outputPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\AwayAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jonno\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3700,8 +3700,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\Models\\Models.csproj": {
-              "projectPath": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\Models\\Models.csproj"
+            "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\Models\\Models.csproj"
             }
           }
         }
@@ -3762,5 +3762,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
+    }
+  ]
 }

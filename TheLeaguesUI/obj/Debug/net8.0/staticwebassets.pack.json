@@ -1,0 +1,49 @@
+{
+  "Files": [
+    {
+      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\obj\\Debug\\net8.0\\compressed\\qw9npv8wn2.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
+      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TheLeaguesUI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.TheLeaguesUI.props",
+      "PackagePath": "build\\TheLeaguesUI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.TheLeaguesUI.props",
+      "PackagePath": "buildMultiTargeting\\TheLeaguesUI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.TheLeaguesUI.props",
+      "PackagePath": "buildTransitive\\TheLeaguesUI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
