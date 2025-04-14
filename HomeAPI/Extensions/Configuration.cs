@@ -1,13 +1,15 @@
 using System;
 using System.Threading.RateLimiting;
+using HomeAPI.DAL;
 using HomeAPI.LeagueEndpoints;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomeAPI.Extensions
 {
     public static class Configuration
     {
-        public static void RegisterServicees(this WebApplicationBuilder builder)
+        public static void RegisterServices(this WebApplicationBuilder builder)
         {
             #region Configure environment specific settings
             var configBuilder = new ConfigurationBuilder()
@@ -53,6 +55,11 @@ namespace HomeAPI.Extensions
             #endregion
 
             #region AuthN/AuthZ
+            #endregion
+
+            #region DAL
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnectionString")));
             #endregion
         }
         public static void RegisterMiddlewares(this WebApplication app)
