@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj": {}
+    "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj": {
+    "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
+        "projectUniqueName": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
         "projectName": "HomeAPI",
-        "projectPath": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
+        "projectPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
         "packagesPath": "C:\\Users\\jonno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonno\\Desktop\\Projects\\theLeagues\\HomeAPI\\obj\\",
+        "outputPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jonno\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -42,8 +42,14 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "NSwag.AspNetCore": {
+              "target": "Package",
+              "version": "[14.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -55,24 +61,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -81,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
