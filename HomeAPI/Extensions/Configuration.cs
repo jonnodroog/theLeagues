@@ -1,5 +1,6 @@
 using System;
 using System.Threading.RateLimiting;
+using HomeAPI.LeagueEndpoints;
 using Microsoft.AspNetCore.RateLimiting;
 
 namespace HomeAPI.Extensions
@@ -9,6 +10,12 @@ namespace HomeAPI.Extensions
         public static void RegisterServicees(this WebApplicationBuilder builder)
         {
             #region Configure environment specific settings
+            var configBuilder = new ConfigurationBuilder()
+                         .AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
+                         .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
+                         .Build();
+
+            builder.Services.Configure<HomeSettings>(builder.Configuration.GetSection("HomeSettings"));
             #endregion
 
             #region Rate limiting
@@ -56,7 +63,7 @@ namespace HomeAPI.Extensions
 
                 app.UseExceptionHandler();
                 //app.UseAuthorization();
-
+            
                 if(app.Environment.IsDevelopment())
                 {
                    app.UseOpenApi();
@@ -70,6 +77,8 @@ namespace HomeAPI.Extensions
                 }
 
                 app.UseRateLimiter();
+
+                app.RegisterLeagueEndpoints();
         }
     }
 }
