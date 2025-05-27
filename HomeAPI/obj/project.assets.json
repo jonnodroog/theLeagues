@@ -4030,11 +4030,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
+      "projectUniqueName": "D:\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
       "projectName": "HomeAPI",
-      "projectPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
+      "projectPath": "D:\\Work\\Projects\\theLeagues\\HomeAPI\\HomeAPI.csproj",
       "packagesPath": "C:\\Users\\jonno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\HomeAPI\\obj\\",
+      "outputPath": "D:\\Work\\Projects\\theLeagues\\HomeAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jonno\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4051,8 +4051,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\Models\\Models.csproj": {
-              "projectPath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\Models\\Models.csproj"
+            "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj": {
+              "projectPath": "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj"
             }
           }
         }

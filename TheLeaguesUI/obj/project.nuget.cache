@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "I9BzJUrktMs=",
+  "dgSpecHash": "AhcNPKF1dc4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj",
+  "projectFilePath": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jonno\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.11\\microsoft.aspnetcore.authorization.8.0.11.nupkg.sha512",
     "C:\\Users\\jonno\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.11\\microsoft.aspnetcore.components.8.0.11.nupkg.sha512",
@@ -33,12 +33,5 @@
     "C:\\Users\\jonno\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
     "C:\\Users\\jonno\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.11\\microsoft.netcore.app.runtime.mono.browser-wasm.8.0.11.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  "logs": []
 }

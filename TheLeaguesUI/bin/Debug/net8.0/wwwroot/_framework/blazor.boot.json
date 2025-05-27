@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "TheLeaguesUI",
   "resources": {
-    "hash": "sha256-V5HLbmOdVSJZs6OOq1yB3f3PW9TgZXnxtEtYmVBhn2g=",
+    "hash": "sha256-92IumhKz43gdwEqdXsS6ckR2d7Jphr+mmfQtF6L+p98=",
     "jsModuleNative": {
       "dotnet.native.8.0.11.h25puzwh27.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -208,10 +208,12 @@
       "mscorlib.wasm": "sha256-04e4k5XU8HWGB/dq/2+j84xzzGPflTs0IYWI0OxogVc=",
       "netstandard.wasm": "sha256-gnGZURPnoSmjXuYNCOJi5tt8qn2LRImWgue1Ru3/TDQ=",
       "System.Private.CoreLib.wasm": "sha256-6w3jYr0arcp8jnt4aeqh+AmqrLA6q7jl9rQYAwLzE0M=",
-      "TheLeaguesUI.wasm": "sha256-ler0ybYdYsBUuxwBErfa0+Uw/j2h69FcMHb/mT7ZDMs="
+      "Models.wasm": "sha256-UaGgJ8HYewmYquWzs0lHgbP6mHRSIfAc+DAoMU9uIhw=",
+      "TheLeaguesUI.wasm": "sha256-MnkKtz6ucSi3ht4Y9VI6l1WkPZVbCkumLbrsp4rN9go="
     },
     "pdb": {
-      "TheLeaguesUI.pdb": "sha256-Uctjq2kBCVBOj2hncvoKThYxkqr8ZDbxJXxVsG9PIyQ="
+      "Models.pdb": "sha256-BX7NptYVJIIsD4MJJPzdSvyeC+Jtfd7T2bIGimGOaOI=",
+      "TheLeaguesUI.pdb": "sha256-NDjU6tKxJu9tk4jAK3am1fgilh6R/hs8/d0Ow5jW6Tg="
     }
   },
   "cacheBootResources": true,

@@ -1,4 +1,21 @@
-body{
-    width: 100vw;
-    background-color: #092635;
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.loading-screen-text {
+    font-size: 4rem;
+    color: #fff;
+    text-shadow: 5px 5px 0 #0037a4, 10px 10px 0 #00d4ff;
+    animation: shadow-dance 2s infinite;
+}
+
+@keyframes shadow-dance {
+    0%, 100% {
+        text-shadow: 5px 5px 0 #ff005e, 10px 10px 0 #00d4ff;
+    }
+    50% {
+        text-shadow: -5px -5px 0 #00d4ff, -10px -10px 0 #ff005e;
+    }
 }

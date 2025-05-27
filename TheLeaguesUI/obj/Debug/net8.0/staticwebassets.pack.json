@@ -1,31 +1,31 @@
 {
   "Files": [
     {
-      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "Id": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
     },
     {
-      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\obj\\Debug\\net8.0\\compressed\\qw9npv8wn2.gz",
+      "Id": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\obj\\Debug\\net8.0\\compressed\\qw9npv8wn2.gz",
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
     },
     {
-      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\app.css",
+      "Id": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },
     {
-      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Id": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Id": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\styles.css",
+      "Id": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\css\\styles.css",
       "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
-      "Id": "c:\\Users\\jonno\\Desktop\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\index.html",
+      "Id": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
