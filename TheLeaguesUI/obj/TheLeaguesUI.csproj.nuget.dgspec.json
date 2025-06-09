@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj": {}
+    "D:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj": {}
   },
   "projects": {
-    "d:\\Work\\Projects\\theLeagues\\Models\\Models.csproj": {
+    "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
+        "projectUniqueName": "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "d:\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
+        "projectPath": "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
         "packagesPath": "C:\\Users\\jonno\\.nuget\\packages\\",
-        "outputPath": "d:\\Work\\Projects\\theLeagues\\Models\\obj\\",
+        "outputPath": "D:\\Work\\Projects\\theLeagues\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jonno\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -78,14 +78,14 @@
         }
       }
     },
-    "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj": {
+    "D:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj",
+        "projectUniqueName": "D:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj",
         "projectName": "TheLeaguesUI",
-        "projectPath": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj",
+        "projectPath": "D:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\TheLeaguesUI.csproj",
         "packagesPath": "C:\\Users\\jonno\\.nuget\\packages\\",
-        "outputPath": "d:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\obj\\",
+        "outputPath": "D:\\Work\\Projects\\theLeagues\\TheLeaguesUI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jonno\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -102,8 +102,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "d:\\Work\\Projects\\theLeagues\\Models\\Models.csproj": {
-                "projectPath": "d:\\Work\\Projects\\theLeagues\\Models\\Models.csproj"
+              "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj": {
+                "projectPath": "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj"
               }
             }
           }

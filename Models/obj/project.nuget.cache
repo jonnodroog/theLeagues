@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zRwMGKMOHkc=",
+  "dgSpecHash": "bdabq6kHT+Y=",
   "success": true,
-  "projectFilePath": "d:\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
+  "projectFilePath": "D:\\Work\\Projects\\theLeagues\\Models\\Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jonno\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
     "C:\\Users\\jonno\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",

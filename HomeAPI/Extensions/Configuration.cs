@@ -1,9 +1,12 @@
 using System;
 using System.Threading.RateLimiting;
 using HomeAPI.DAL;
-using HomeAPI.LeagueEndpoints;
+using HomeAPI.Endpoints;
+using HomeAPI.Services;
+using HomeAPI.Services.Interfaces;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using theLeagues.Services.Interfaces;
 
 namespace HomeAPI.Extensions
 {
@@ -11,13 +14,18 @@ namespace HomeAPI.Extensions
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
-            #region Configure environment specific settings
-            var configBuilder = new ConfigurationBuilder()
-                         .AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
-                         .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
-                         .Build();
+            #region DAL
+                builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("HomeDbConnection")));
+            #endregion
 
-            builder.Services.Configure<HomeSettings>(builder.Configuration.GetSection("HomeSettings"));
+            #region Configure environment specific settings
+                var configBuilder = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
+                            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
+                            .Build();
+
+                builder.Services.Configure<HomeSettings>(builder.Configuration.GetSection("HomeSettings"));
             #endregion
 
             #region Rate limiting
@@ -32,10 +40,13 @@ namespace HomeAPI.Extensions
             #endregion
 
             #region Declare custom services
+                builder.Services.AddScoped<ILeagueService, LeagueService>();
+                builder.Services.AddScoped<ITeamService, TeamService>();
+                builder.Services.AddScoped<IPlayerService, PlayerService>();
             #endregion
 
             #region Swagger
-                builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddOpenApiDocument(config =>
                 {
                     config.DocumentName = "HomeAPI";
@@ -55,11 +66,6 @@ namespace HomeAPI.Extensions
             #endregion
 
             #region AuthN/AuthZ
-            #endregion
-
-            #region DAL
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnectionString")));
             #endregion
         }
         public static void RegisterMiddlewares(this WebApplication app)

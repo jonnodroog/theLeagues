@@ -104,6 +104,7 @@ public class AwayBackgroundService : BackgroundService, IDisposable
 
                 Thread.Sleep(5000);
             }
+
             return leagues;
         }
         catch (Exception ex)

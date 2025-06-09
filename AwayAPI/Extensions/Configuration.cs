@@ -10,8 +10,8 @@ namespace Extensions
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
             #region DAL
-                var connectionString = builder.Configuration.GetConnectionString("AwayDB") ?? "Data Source=AwayAPI.db";
-                builder.Services.AddSqlite<AwayDBContext>(connectionString);
+            var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Away_Dev");
+                builder.Services.AddSqlServer<AwayDBContext>(connectionString);
             #endregion
 
             #region Swagger

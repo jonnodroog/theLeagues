@@ -1,0 +1,115 @@
+Id,Name,Code,Country,Founded,National,Logo,CurrentLeagueRank,Points,GoalsDiff,Played,Win,Draw,Lose,GoalsFor,GoalsAgainst,LeagueId
+33,"Manchester United","","",,0,https://media.api-sports.io/football/teams/33.png,13,22,-1,17,6,4,7,21,22,39
+34,Newcastle,"","",,0,https://media.api-sports.io/football/teams/34.png,8,26,6,17,7,5,5,27,21,39
+35,Bournemouth,"","",,0,https://media.api-sports.io/football/teams/35.png,5,28,6,17,8,4,5,27,21,39
+36,Fulham,"","",,0,https://media.api-sports.io/football/teams/36.png,9,25,2,17,6,7,4,24,22,39
+39,Wolves,"","",,0,https://media.api-sports.io/football/teams/39.png,18,12,-13,17,3,3,11,27,40,39
+40,Liverpool,"","",,0,https://media.api-sports.io/football/teams/40.png,1,39,21,16,12,3,1,37,16,39
+41,Southampton,"","",,0,https://media.api-sports.io/football/teams/41.png,20,6,-25,17,1,3,13,11,36,39
+42,Arsenal,"","",,0,https://media.api-sports.io/football/teams/42.png,3,33,18,17,9,6,2,34,16,39
+45,Everton,"","",,0,https://media.api-sports.io/football/teams/45.png,15,16,-7,16,3,7,6,14,21,39
+46,Leicester,"","",,0,https://media.api-sports.io/football/teams/46.png,17,14,-16,17,3,5,9,21,37,39
+47,Tottenham,"","",,0,https://media.api-sports.io/football/teams/47.png,11,23,14,17,7,2,8,39,25,39
+48,"West Ham","","",,0,https://media.api-sports.io/football/teams/48.png,14,20,-8,17,5,5,7,22,30,39
+49,Chelsea,"","",,0,https://media.api-sports.io/football/teams/49.png,2,35,18,17,10,5,2,37,19,39
+50,"Manchester City","","",,0,https://media.api-sports.io/football/teams/50.png,7,27,4,17,8,3,6,29,25,39
+51,Brighton,"","",,0,https://media.api-sports.io/football/teams/51.png,10,25,1,17,6,7,4,27,26,39
+52,"Crystal Palace","","",,0,https://media.api-sports.io/football/teams/52.png,16,16,-8,17,3,7,7,18,26,39
+55,Brentford,"","",,0,https://media.api-sports.io/football/teams/55.png,12,23,0,17,7,2,8,32,32,39
+57,Ipswich,"","",,0,https://media.api-sports.io/football/teams/57.png,19,12,-16,17,2,6,9,16,32,39
+65,"Nottingham Forest","","",,0,https://media.api-sports.io/football/teams/65.png,4,31,4,17,9,4,4,23,19,39
+66,"Aston Villa","","",,0,https://media.api-sports.io/football/teams/66.png,6,28,0,17,8,4,5,26,26,39
+77,Angers,"","",,0,https://media.api-sports.io/football/teams/77.png,15,13,-12,15,3,4,8,14,26,61
+79,Lille,"","",,0,https://media.api-sports.io/football/teams/79.png,4,27,10,15,7,6,2,25,15,61
+80,Lyon,"","",,0,https://media.api-sports.io/football/teams/80.png,5,25,7,15,7,4,4,27,20,61
+81,Marseille,"","",,0,https://media.api-sports.io/football/teams/81.png,2,30,14,15,9,3,3,32,18,61
+82,Montpellier,"","",,0,https://media.api-sports.io/football/teams/82.png,18,9,-23,15,2,3,10,15,38,61
+83,Nantes,"","",,0,https://media.api-sports.io/football/teams/83.png,14,14,-7,15,3,5,7,17,24,61
+84,Nice,"","",,0,https://media.api-sports.io/football/teams/84.png,6,24,9,15,6,6,3,28,19,61
+85,"Paris Saint Germain","","",,0,https://media.api-sports.io/football/teams/85.png,1,40,30,16,12,4,0,44,14,61
+91,Monaco,"","",,0,https://media.api-sports.io/football/teams/91.png,3,30,10,16,9,3,4,26,16,61
+93,Reims,"","",,0,https://media.api-sports.io/football/teams/93.png,10,20,2,15,5,5,5,20,18,61
+94,Rennes,"","",,0,https://media.api-sports.io/football/teams/94.png,12,17,0,15,5,2,8,20,20,61
+95,Strasbourg,"","",,0,https://media.api-sports.io/football/teams/95.png,13,17,-2,15,4,5,6,25,27,61
+96,Toulouse,"","",,0,https://media.api-sports.io/football/teams/96.png,9,21,0,15,6,3,6,17,17,61
+106,"Stade Brestois 29","","",,0,https://media.api-sports.io/football/teams/106.png,11,19,-3,15,6,1,8,24,27,61
+108,Auxerre,"","",,0,https://media.api-sports.io/football/teams/108.png,8,21,0,15,6,3,6,23,23,61
+111,"LE Havre","","",,0,https://media.api-sports.io/football/teams/111.png,17,12,-18,15,4,0,11,11,29,61
+116,Lens,"","",,0,https://media.api-sports.io/football/teams/116.png,7,24,5,15,6,6,3,19,14,61
+157,"Bayern München","","",,0,https://media.api-sports.io/football/teams/157.png,1,36,34,15,11,3,1,47,13,78
+160,"SC Freiburg","","",,0,https://media.api-sports.io/football/teams/160.png,9,24,-3,15,7,3,5,21,24,78
+161,"VfL Wolfsburg","","",,0,https://media.api-sports.io/football/teams/161.png,11,21,4,15,6,3,6,32,28,78
+162,"Werder Bremen","","",,0,https://media.api-sports.io/football/teams/162.png,7,25,1,15,7,4,4,26,25,78
+163,"Borussia Mönchengladbach","","",,0,https://media.api-sports.io/football/teams/163.png,8,24,5,15,7,3,5,25,20,78
+164,"FSV Mainz 05","","",,0,https://media.api-sports.io/football/teams/164.png,5,25,8,15,7,4,4,28,20,78
+165,"Borussia Dortmund","","",,0,https://media.api-sports.io/football/teams/165.png,6,25,6,15,7,4,4,28,22,78
+167,"1899 Hoffenheim","","",,0,https://media.api-sports.io/football/teams/167.png,15,14,-8,15,3,5,7,20,28,78
+168,"Bayer Leverkusen","","",,0,https://media.api-sports.io/football/teams/168.png,2,32,16,15,9,5,1,37,21,78
+169,"Eintracht Frankfurt","","",,0,https://media.api-sports.io/football/teams/169.png,3,27,12,15,8,3,4,35,23,78
+170,"FC Augsburg","","",,0,https://media.api-sports.io/football/teams/170.png,13,16,-15,15,4,4,7,17,32,78
+172,"VfB Stuttgart","","",,0,https://media.api-sports.io/football/teams/172.png,10,23,4,15,6,5,4,29,25,78
+173,"RB Leipzig","","",,0,https://media.api-sports.io/football/teams/173.png,4,27,4,15,8,3,4,24,20,78
+176,"VfL Bochum","","",,0,https://media.api-sports.io/football/teams/176.png,18,6,-22,15,1,3,11,13,35,78
+180,"1. FC Heidenheim","","",,0,https://media.api-sports.io/football/teams/180.png,16,10,-15,15,3,1,11,18,33,78
+182,"Union Berlin","","",,0,https://media.api-sports.io/football/teams/182.png,12,17,-5,15,4,5,6,14,19,78
+186,"FC St. Pauli","","",,0,https://media.api-sports.io/football/teams/186.png,14,14,-7,15,4,2,9,12,19,78
+191,"Holstein Kiel","","",,0,https://media.api-sports.io/football/teams/191.png,17,8,-19,15,2,2,11,19,38,78
+193,"PEC Zwolle","","",,0,https://media.api-sports.io/football/teams/193.png,13,17,-10,17,4,5,8,16,26,88
+194,Ajax,"","",,0,https://media.api-sports.io/football/teams/194.png,2,39,21,17,12,3,2,37,16,88
+195,"Willem II","","",,0,https://media.api-sports.io/football/teams/195.png,9,22,2,17,6,4,7,21,19,88
+197,"PSV Eindhoven","","",,0,https://media.api-sports.io/football/teams/197.png,1,45,46,17,15,0,2,59,13,88
+201,"AZ Alkmaar","","",,0,https://media.api-sports.io/football/teams/201.png,5,32,14,17,10,2,5,31,17,88
+202,Groningen,"","",,0,https://media.api-sports.io/football/teams/202.png,14,16,-12,16,4,4,8,14,26,88
+203,"NAC Breda","","",,0,https://media.api-sports.io/football/teams/203.png,10,22,-8,17,7,1,9,19,27,88
+205,"Fortuna Sittard","","",,0,https://media.api-sports.io/football/teams/205.png,8,25,0,17,7,4,6,25,25,88
+206,Heracles,"","",,0,https://media.api-sports.io/football/teams/206.png,15,14,-15,16,3,5,8,18,33,88
+207,Utrecht,"","",,0,https://media.api-sports.io/football/teams/207.png,3,36,6,17,11,3,3,34,28,88
+209,Feyenoord,"","",,0,https://media.api-sports.io/football/teams/209.png,4,35,19,17,10,5,2,40,21,88
+210,Heerenveen,"","",,0,https://media.api-sports.io/football/teams/210.png,11,21,-14,17,6,3,8,17,31,88
+410,"GO Ahead Eagles","","",,0,https://media.api-sports.io/football/teams/410.png,7,25,3,17,7,4,6,30,27,88
+413,"NEC Nijmegen","","",,0,https://media.api-sports.io/football/teams/413.png,12,17,-1,17,5,2,10,23,24,88
+415,Twente,"","",,0,https://media.api-sports.io/football/teams/415.png,6,31,11,17,9,4,4,32,21,88
+417,Waalwijk,"","",,0,https://media.api-sports.io/football/teams/417.png,18,7,-23,17,1,4,12,18,41,88
+419,"Almere City FC","","",,0,https://media.api-sports.io/football/teams/419.png,17,9,-27,17,2,3,12,10,37,88
+426,"Sparta Rotterdam","","",,0,https://media.api-sports.io/football/teams/426.png,16,12,-12,17,2,6,9,14,26,88
+487,Lazio,"","",,0,https://media.api-sports.io/football/teams/487.png,4,34,8,17,11,1,5,32,24,135
+489,"AC Milan","","",,0,https://media.api-sports.io/football/teams/489.png,8,26,9,16,7,5,4,25,16,135
+490,Cagliari,"","",,0,https://media.api-sports.io/football/teams/490.png,18,14,-12,17,3,5,9,16,28,135
+492,Napoli,"","",,0,https://media.api-sports.io/football/teams/492.png,2,38,14,17,12,2,3,26,12,135
+494,Udinese,"","",,0,https://media.api-sports.io/football/teams/494.png,9,23,-5,17,7,2,8,21,26,135
+495,Genoa,"","",,0,https://media.api-sports.io/football/teams/495.png,13,16,-12,17,3,7,7,14,26,135
+496,Juventus,"","",,0,https://media.api-sports.io/football/teams/496.png,6,31,15,17,7,10,0,28,13,135
+497,"AS Roma","","",,0,https://media.api-sports.io/football/teams/497.png,10,19,0,17,5,4,8,23,23,135
+499,Atalanta,"","",,0,https://media.api-sports.io/football/teams/499.png,1,40,23,17,13,1,3,42,19,135
+500,Bologna,"","",,0,https://media.api-sports.io/football/teams/500.png,7,28,5,16,7,7,2,23,18,135
+502,Fiorentina,"","",,0,https://media.api-sports.io/football/teams/502.png,5,31,16,16,9,4,3,29,13,135
+503,Torino,"","",,0,https://media.api-sports.io/football/teams/503.png,12,19,-5,17,5,4,8,17,22,135
+504,Verona,"","",,0,https://media.api-sports.io/football/teams/504.png,17,15,-19,17,5,0,12,21,40,135
+505,Inter,"","",,0,https://media.api-sports.io/football/teams/505.png,3,34,25,15,10,4,1,40,15,135
+511,Empoli,"","",,0,https://media.api-sports.io/football/teams/511.png,11,19,-3,17,4,7,6,16,19,135
+517,Venezia,"","",,0,https://media.api-sports.io/football/teams/517.png,19,13,-13,17,3,4,10,17,30,135
+523,Parma,"","",,0,https://media.api-sports.io/football/teams/523.png,16,15,-10,17,3,6,8,23,33,135
+529,Barcelona,"","",,0,https://media.api-sports.io/football/teams/529.png,3,38,29,19,12,2,5,51,22,140
+530,"Atletico Madrid","","",,0,https://media.api-sports.io/football/teams/530.png,1,41,21,18,12,5,1,33,12,140
+531,"Athletic Club","","",,0,https://media.api-sports.io/football/teams/531.png,4,36,12,19,10,6,3,29,17,140
+532,Valencia,"","",,0,https://media.api-sports.io/football/teams/532.png,19,12,-10,17,2,6,9,16,26,140
+533,Villarreal,"","",,0,https://media.api-sports.io/football/teams/533.png,5,30,4,18,8,6,4,34,30,140
+534,"Las Palmas","","",,0,https://media.api-sports.io/football/teams/534.png,13,22,-4,18,6,4,8,23,27,140
+536,Sevilla,"","",,0,https://media.api-sports.io/football/teams/536.png,14,22,-7,18,6,4,8,20,27,140
+537,Leganes,"","",,0,https://media.api-sports.io/football/teams/537.png,15,18,-11,18,4,6,8,17,28,140
+538,"Celta Vigo","","",,0,https://media.api-sports.io/football/teams/538.png,11,24,-1,18,7,3,8,27,28,140
+540,Espanyol,"","",,0,https://media.api-sports.io/football/teams/540.png,18,15,-14,18,4,3,11,16,30,140
+541,"Real Madrid","","",,0,https://media.api-sports.io/football/teams/541.png,2,40,23,18,12,4,2,41,18,140
+542,Alaves,"","",,0,https://media.api-sports.io/football/teams/542.png,16,17,-9,18,4,5,9,21,30,140
+543,"Real Betis","","",,0,https://media.api-sports.io/football/teams/543.png,9,25,-1,18,6,7,5,21,22,140
+546,Getafe,"","",,0,https://media.api-sports.io/football/teams/546.png,17,16,-4,18,3,7,8,11,15,140
+547,Girona,"","",,0,https://media.api-sports.io/football/teams/547.png,8,25,1,18,7,4,7,26,25,140
+548,"Real Sociedad","","",,0,https://media.api-sports.io/football/teams/548.png,7,25,3,18,7,4,7,16,13,140
+720,Valladolid,"","",,0,https://media.api-sports.io/football/teams/720.png,20,12,-25,18,3,3,12,12,37,140
+727,Osasuna,"","",,0,https://media.api-sports.io/football/teams/727.png,10,25,-4,18,6,7,5,23,27,140
+728,"Rayo Vallecano","","",,0,https://media.api-sports.io/football/teams/728.png,12,22,-1,18,5,7,6,20,21,140
+798,Mallorca,"","",,0,https://media.api-sports.io/football/teams/798.png,6,30,-2,19,9,3,7,19,21,140
+867,Lecce,"","",,0,https://media.api-sports.io/football/teams/867.png,14,16,-18,17,4,4,9,11,29,135
+895,Como,"","",,0,https://media.api-sports.io/football/teams/895.png,15,15,-10,16,3,6,7,18,28,135
+1063,"Saint Etienne","","",,0,https://media.api-sports.io/football/teams/1063.png,16,13,-22,15,4,1,10,12,34,61
+1579,Monza,"","",,0,https://media.api-sports.io/football/teams/1579.png,20,10,-8,17,1,7,9,15,23,135

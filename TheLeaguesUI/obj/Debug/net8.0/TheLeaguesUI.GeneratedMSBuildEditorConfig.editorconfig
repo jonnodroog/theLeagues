@@ -13,27 +13,27 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = TheLeaguesUI
 build_property.RootNamespace = TheLeaguesUI
-build_property.ProjectDir = d:\Work\Projects\theLeagues\TheLeaguesUI\
+build_property.ProjectDir = D:\Work\Projects\theLeagues\TheLeaguesUI\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = d:\Work\Projects\theLeagues\TheLeaguesUI
+build_property.MSBuildProjectDirectory = D:\Work\Projects\theLeagues\TheLeaguesUI
 build_property._RazorSourceGeneratorDebug = 
 
-[d:/Work/Projects/theLeagues/TheLeaguesUI/App.razor]
+[D:/Work/Projects/theLeagues/TheLeaguesUI/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/Work/Projects/theLeagues/TheLeaguesUI/Layout/MainLayout.razor]
+[D:/Work/Projects/theLeagues/TheLeaguesUI/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/Work/Projects/theLeagues/TheLeaguesUI/Pages/Home.razor]
+[D:/Work/Projects/theLeagues/TheLeaguesUI/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/Work/Projects/theLeagues/TheLeaguesUI/_Imports.razor]
+[D:/Work/Projects/theLeagues/TheLeaguesUI/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
