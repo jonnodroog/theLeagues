@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\TheLeaguesUI.props" />
-</Project>
