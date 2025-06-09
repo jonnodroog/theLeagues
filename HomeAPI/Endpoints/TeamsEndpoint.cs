@@ -57,7 +57,7 @@ namespace HomeAPI.Endpoints
             .Produces(StatusCodes.Status404NotFound);
             
             // GET TEAMS BY COUNTRY
-            teamEndpointsGroup.MapGet("/country={country:string}", async (ITeamService teamService, string country) =>
+            teamEndpointsGroup.MapGet("/country={country:alpha}", async (ITeamService teamService, string country) =>
             {
                 var teams = await teamService.GetByCountryAsync(country);
 

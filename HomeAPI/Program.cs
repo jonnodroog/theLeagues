@@ -1,6 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using HomeAPI.Extensions;
 
-app.MapGet("/", () => "Hello World!");
+var builder = WebApplication.CreateBuilder(args);
+builder.RegisterServices();
+
+var app = builder.Build();
+app.RegisterMiddlewares();
+
+
+app.MapGet("", () => "Home API is live");
 
 app.Run();

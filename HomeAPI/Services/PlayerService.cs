@@ -9,9 +9,9 @@ namespace HomeAPI.Services
 {
     public class PlayerService : IPlayerService
     {
-        private readonly AppDbContext _context;
+        private readonly HomeDBContext _context;
 
-        public PlayerService(AppDbContext context)
+        public PlayerService(HomeDBContext context)
         {
             _context = context;
         }

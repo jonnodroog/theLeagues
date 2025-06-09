@@ -3,7 +3,7 @@ using Models.DTO;
 
 namespace HomeAPI.DAL
 {
-    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+    public class HomeDBContext(DbContextOptions<HomeDBContext> options) : DbContext(options)
     {
         public DbSet<LeagueDTO> Leagues => Set<LeagueDTO>();
         public DbSet<TeamDTO> Teams => Set<TeamDTO>();

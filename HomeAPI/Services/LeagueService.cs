@@ -6,9 +6,9 @@ namespace HomeAPI.Services
 {
     public class LeagueService : ILeagueService
     {
-        private readonly AppDbContext _context;
+        private readonly HomeDBContext _context;
 
-        public LeagueService(AppDbContext context)
+        public LeagueService(HomeDBContext context)
         {
             _context = context;
         }

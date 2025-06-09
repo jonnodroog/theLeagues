@@ -15,8 +15,8 @@ namespace HomeAPI.Extensions
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
             #region DAL
-                builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("HomeDbConnection")));
+                var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Home_Dev");
+                builder.Services.AddSqlServer<HomeDBContext>(connectionString);
             #endregion
 
             #region Configure environment specific settings
@@ -29,14 +29,7 @@ namespace HomeAPI.Extensions
             #endregion
 
             #region Rate limiting
-                builder.Services.AddRateLimiter(_ => _
-                .AddFixedWindowLimiter(policyName: "fixed", options =>
-                {
-                    options.PermitLimit = 4;
-                    options.Window = TimeSpan.FromSeconds(12);
-                    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-                    options.QueueLimit = 10;
-                }));
+
             #endregion
 
             #region Declare custom services
@@ -60,7 +53,6 @@ namespace HomeAPI.Extensions
             {
                 options.AddPolicy("AllowAnyOrigin",
                     builder => builder.AllowAnyOrigin()
-                                      .AllowCredentials()
                                       .AllowAnyHeader());
             });
             #endregion
@@ -70,28 +62,29 @@ namespace HomeAPI.Extensions
         }
         public static void RegisterMiddlewares(this WebApplication app)
         {
-                app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-                app.UseCors("AllowAnyOrigin");
+            app.UseCors("AllowAnyOrigin");
 
-                app.UseExceptionHandler();
-                //app.UseAuthorization();
-            
-                if(app.Environment.IsDevelopment())
+             app.UseExceptionHandler("/Error");
+            //app.UseAuthorization();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseOpenApi();
+                app.UseSwaggerUi(config =>
                 {
-                   app.UseOpenApi();
-                   app.UseSwaggerUi(config =>
-                   {
                     config.DocumentTitle = "HomeAPI";
                     config.Path = "/swagger";
                     config.DocExpansion = "/swagger/{documentName}/swagger.json";
                     config.DocExpansion = "list";
-                   });
-                }
+                });
+            }
 
-                app.UseRateLimiter();
 
-                app.RegisterLeagueEndpoints();
+            app.RegisterLeagueEndpoints();
+            app.RegisterPlayerEndpoints();
+            app.RegisterTeamEndpoints();
         }
     }
 }

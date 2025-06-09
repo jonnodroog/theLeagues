@@ -8,9 +8,9 @@ namespace HomeAPI.Services
 {
     public class TeamService : ITeamService
     {
-        private readonly AppDbContext _context;
+        private readonly HomeDBContext _context;
 
-        public TeamService(AppDbContext context)
+        public TeamService(HomeDBContext context)
         {
             _context = context;
         }
