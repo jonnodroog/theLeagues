@@ -28,31 +28,31 @@ public class AwayBackgroundService : BackgroundService, IDisposable
             using(var scope = _serviceScopeFactory.CreateAsyncScope())
             {
                 var _awayDbContext = scope.ServiceProvider.GetRequiredService<AwayDBContext>();
-            // Fetch all leagues data and complete leaguesDTOs
-            _logger.LogInformation("Fetching all leagues data. Teams and player raw date included.");
-            List<League> leagues = await GetAllLeagues();
-            _logger.LogInformation("All leagues data has been fetched!");
+                // Fetch all leagues data and complete leaguesDTOs
+                _logger.LogInformation("Fetching all leagues data. Teams and player raw date included.");
+                List<League> leagues = await GetAllLeagues();
+                _logger.LogInformation("All leagues data has been fetched!");
 
-            _logger.LogInformation("Converting leagues to a nicer format for the UI. Teams and player raw date included.");
-            List<LeagueDTO> leaguesButNicer = await CompleteLeaguesDTO(leagues);
-            _logger.LogInformation("Leagues are now in a nicer format.");
+                _logger.LogInformation("Converting leagues to a nicer format for the UI. Teams and player raw data included.");
+                List<LeagueDTO> leaguesButNicer = await CompleteLeaguesDTO(leagues);
+                _logger.LogInformation("Leagues are now in a nicer format.");
 
-            //store in database
-            foreach(var league in leaguesButNicer)
-            {
-                await _awayDbContext.Leagues.AddAsync(league);
-                
-                foreach(var team in league.Teams)
+                //store in database
+                foreach(var league in leaguesButNicer)
                 {
-                    await _awayDbContext.Teams.AddAsync(team);
-                    foreach(var player in team.Players)
+                    await _awayDbContext.Leagues.AddAsync(league);
+                    
+                    foreach(var team in league.Teams)
                     {
-                        await _awayDbContext.Players.AddAsync(player);
+                        await _awayDbContext.Teams.AddAsync(team);
+                        foreach(var player in team.Players)
+                        {
+                            await _awayDbContext.Players.AddAsync(player);
+                        }
                     }
                 }
-            }
 
-            await _awayDbContext.SaveChangesAsync();
+                await _awayDbContext.SaveChangesAsync();
             }
 
         }
