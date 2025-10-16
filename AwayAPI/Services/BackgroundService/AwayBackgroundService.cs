@@ -38,7 +38,7 @@ public class AwayBackgroundService : BackgroundService, IDisposable
             }
             else
             {
-                _logger.LogInformation("This is a prod environment. Fetching prod data.");
+                _logger.LogInformation("This is a production or staging environment. Fetching data.");
                 leagues = await GetAllLeagues();
             }
             _logger.LogInformation("All leagues data has been fetched!");
