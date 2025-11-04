@@ -10,7 +10,7 @@ namespace HomeAPI.Endpoints
             // Define a group for player-related endpoints
             var playerEndpointsGroup = app.MapGroup("/players");
 
-            // GET ALL PLAYERS
+            #region GetAllPlayers
             playerEndpointsGroup.MapGet("", async (IPlayerService playerService) =>
             {
                 var players = await playerService.GetAllPlayersAsync();
@@ -24,11 +24,12 @@ namespace HomeAPI.Endpoints
             .WithTags("Players")
             .Produces<IEnumerable<PlayerDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
+            #endregion
 
-            // GET PLAYER BY PLATER ID
+            #region GetPlayerByPlayerId
             playerEndpointsGroup.MapGet("/player-id={id:int}", async (IPlayerService playerService, int id) =>
             {
-                var player = await playerService.GetByIdAsync(id);
+                var player = await playerService.GetPlayerByPlayerIdAsync(id);
                 return player is not null ? Results.Ok(player) : Results.NotFound($"Player with ID {id} not found.");
             })
             .WithName("GetPlayerById")
@@ -37,11 +38,12 @@ namespace HomeAPI.Endpoints
             .WithTags("Players")
             .Produces<PlayerDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
+            #endregion
 
-            // GET PLAYERS BY TEAM ID
+            #region GetPlayersByTeamId
             playerEndpointsGroup.MapGet("/team-id={teamId:int}", async (IPlayerService playerService, int teamId) =>
             {
-                var players = await playerService.GetByTeamIdAsync(teamId);
+                var players = await playerService.GetPlayersByTeamIdAsync(teamId);
                 return players is not null && players.Any()
                     ? Results.Ok(players)
                     : Results.NotFound($"No players found for team with ID {teamId}.");
@@ -52,12 +54,12 @@ namespace HomeAPI.Endpoints
             .WithTags("Players")
             .Produces<IEnumerable<PlayerDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
+            #endregion
 
-            // GET PLAYERS BY LEAGUE ID
-
+            #region GetPlayersByLeagueId
             playerEndpointsGroup.MapGet("/league-id={leagueId:int}", async (IPlayerService playerService, int leagueId) =>
             {
-                var players = await playerService.GetByLeagueIdAsync(leagueId);
+                var players = await playerService.GetPlayersByLeagueIdAsync(leagueId);
                 return players is not null && players.Any()
                     ? Results.Ok(players)
                     : Results.NotFound($"No players found for league with ID {leagueId}.");
@@ -68,21 +70,7 @@ namespace HomeAPI.Endpoints
             .WithTags("Players")
             .Produces<IEnumerable<PlayerDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
-
-            //GET PLAYERS BY COUNTRY
-            playerEndpointsGroup.MapGet("/country={country}", async (IPlayerService playerService, string country) =>
-            {
-                var players = await playerService.GetByCountryAsync(country);
-                return players is not null && players.Any()
-                    ? Results.Ok(players)
-                    : Results.NotFound($"No players found for country {country}.");
-            })
-            .WithName("GetPlayersByCountry")
-            .WithDescription("Retrieves players by their country")
-            .WithSummary("This endpoint retrieves all players associated with a specific country. If no players are found, it returns a 404 Not Found response.")
-            .WithTags("Players")
-            .Produces<IEnumerable<PlayerDTO>>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status404NotFound);
+            #endregion
         }
     }
 }

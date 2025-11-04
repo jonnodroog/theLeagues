@@ -14,11 +14,6 @@ namespace HomeAPI.Extensions
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
-            #region DAL
-                var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Home_Dev");
-                builder.Services.AddSqlServer<HomeDBContext>(connectionString);
-            #endregion
-
             #region Configure environment specific settings
                 var configBuilder = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
@@ -27,13 +22,18 @@ namespace HomeAPI.Extensions
 
                 builder.Services.Configure<HomeSettings>(builder.Configuration.GetSection("HomeSettings"));
             #endregion
+            
+            #region DAL
+                var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Home_Dev");
+                builder.Services.AddSqlServer<HomeDBContext>(connectionString);
+            #endregion
 
             #region Rate limiting
 
             #endregion
 
             #region Declare custom services
-                builder.Services.AddScoped<ILeagueService, LeagueService>();
+            builder.Services.AddScoped<ILeagueService, LeagueService>();
                 builder.Services.AddScoped<ITeamService, TeamService>();
                 builder.Services.AddScoped<IPlayerService, PlayerService>();
             #endregion

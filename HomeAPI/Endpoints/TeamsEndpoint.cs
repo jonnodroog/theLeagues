@@ -13,7 +13,7 @@ namespace HomeAPI.Endpoints
             var teamEndpointsGroup = app.MapGroup("/team");
 
 
-            // GET ALL TEAMS
+            #region GetAllTeams
             teamEndpointsGroup.MapGet("", async (ITeamService teamService) =>
             {
                 var teams = await teamService.GetAllTeamsAsync();
@@ -27,8 +27,9 @@ namespace HomeAPI.Endpoints
             .WithSummary("This endpoint retrieves a list of all teams in the database")
             .Produces<IEnumerable<TeamDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
-
-            // GET TEAM BY TEAM ID
+            #endregion
+            
+            #region GetTeamByTeamId
             teamEndpointsGroup.MapGet("/team-id={id:int}", async (ITeamService teamService, int id) =>
             {
                 var team = await teamService.GetByIdAsync(id);
@@ -40,8 +41,9 @@ namespace HomeAPI.Endpoints
             .WithDescription("This endpoint retrieves team data based on the specified team ID. If no team data is found it returns 404 Not Found response")
             .Produces<TeamDTO>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
+            #endregion
 
-            // GET TEAMS BY LEAGUE ID
+            #region GetTeamsByLeagueId
             teamEndpointsGroup.MapGet("/league-id={id:int}", async (ITeamService teamService, int id) =>
             {
                 var teams = await teamService.GetByLeagueIdAsync(id);
@@ -55,21 +57,7 @@ namespace HomeAPI.Endpoints
             .WithDescription("This endpoint retrieves team data based on the specified league ID. If no team data is found it returns 404 Not Found response")
             .Produces<IEnumerable<TeamDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
-            
-            // GET TEAMS BY COUNTRY
-            teamEndpointsGroup.MapGet("/country={country:alpha}", async (ITeamService teamService, string country) =>
-            {
-                var teams = await teamService.GetByCountryAsync(country);
-
-                return teams != null && teams.Any()
-                ? Results.Ok(teams) 
-                : Results.NotFound($"Teams from {country} not found");
-            })
-            .WithName("GetTeamsByCountry")
-            .WithSummary("Retrieves teams by their country")
-            .WithDescription("This endpoint retrieves team data based on the specified country. If no team data is found it returns 404 Not Found response")
-            .Produces<IEnumerable<TeamDTO>>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status404NotFound);
+            #endregion
         }
     }
 }

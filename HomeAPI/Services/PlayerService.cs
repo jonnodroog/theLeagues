@@ -21,22 +21,18 @@ namespace HomeAPI.Services
             return await _context.Players.ToListAsync();
         }
 
-        public async Task<PlayerDTO> GetByIdAsync(int id)
+        public async Task<PlayerDTO> GetPlayerByPlayerIdAsync(int id)
         {
             return await _context.Players.FindAsync(id) ?? new PlayerDTO();
         }
 
-        public async Task<IEnumerable<PlayerDTO>> GetByTeamIdAsync(int teamId)
+        public async Task<IEnumerable<PlayerDTO>> GetPlayersByTeamIdAsync(int teamId)
         {
             return await _context.Players.Where(p => p.Team != null && p.Team.Id == teamId).ToListAsync();
         }
-        public async Task<IEnumerable<PlayerDTO>> GetByLeagueIdAsync(int leagueId)
+        public async Task<IEnumerable<PlayerDTO>> GetPlayersByLeagueIdAsync(int leagueId)
         {
             return await _context.Players.Where(p => p.Team != null && p.Team.League.Id == leagueId).ToListAsync();
-        }
-        public async Task<IEnumerable<PlayerDTO>> GetByCountryAsync(string country)
-        {
-            return await _context.Players.Where(p => p.Nationality == country).ToListAsync();
         }
     }
 }
