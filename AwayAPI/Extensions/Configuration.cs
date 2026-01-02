@@ -1,7 +1,7 @@
 using System;
+using System.Net.Http.Headers;
 using AwayAPI.DAL;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 namespace Extensions
 {
@@ -9,33 +9,45 @@ namespace Extensions
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
         {
+            #region Configure environment specific settings
+            var configBuilder = new ConfigurationBuilder()
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
+
+            builder.Services.Configure<AwaySettings>(builder.Configuration.GetSection("AwaySettings"));
+
+            var awaySettings = builder.Configuration
+            .GetSection("AwaySettings")
+            .Get<AwaySettings>()
+            ?? throw new InvalidOperationException("AwaySettings could not be configured.");
+            #endregion
+
+            #region HTTP Client
+            builder.Services.AddHttpClient("apisports-football", configureClient =>
+            {
+                configureClient.BaseAddress = new Uri("https://v3.football.api-sports.io");
+                configureClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(awaySettings.API_Host, awaySettings.API_Key);
+            }
+            );
+            #endregion
             #region DAL
-            var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Away_Dev");
-                builder.Services.AddSqlServer<AwayDBContext>(connectionString);
+
             #endregion
 
             #region Swagger
-                builder.Services.AddEndpointsApiExplorer();
-                builder.Services.AddSwaggerGen(c =>
+            builder.Services.AddEndpointsApiExplorer();
+                builder.Services.AddOpenApiDocument(config =>
                 {
-                    c.SwaggerDoc("V1", new OpenApiInfo { Title = "Away API", Description = "API for pulling data from API-Football", Version = "V1" });
+                    config.DocumentName = "AwayAPI";
+                    config.Title = "AwayAPI V1";
+                    config.Version = "V1";
                 });
             #endregion
 
             #region CORS
             #endregion
 
-            #region Configuration
-                builder.Services.Configure<AwaySettings>(builder.Configuration.GetSection("env"));
-            #endregion
-
             #region Logging
-                builder.Logging.ClearProviders();
-                builder.Logging.AddConsole();
-            #endregion
-
-            #region Background Service
-                builder.Services.AddHostedService<AwayBackgroundService>();
             #endregion
         }
 
@@ -45,10 +57,13 @@ namespace Extensions
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
+                app.UseOpenApi();
+                app.UseSwaggerUi(config =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Away API");
+                    config.DocumentTitle = "AwayAPI";
+                    config.Path = "/swagger";
+                    config.DocExpansion = "/swagger/{documentName}/swagger.json";
+                    config.DocExpansion = "list";
                 });
                 app.UseExceptionHandler("/Error");
             }
