@@ -32,15 +32,13 @@ namespace AwayAPI.Services
                 {
                     var leagueInDatabase = await _context.Leagues.FindAsync(leagueId);
 
-                    var leagueDoParent = await client.GetFromJsonAsync<LeagueDoParent>($"leagues{leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
-                    var leagueDoParentResponse = leagueDoParent?.Response;
-                    var leagueDo = leagueDoParentResponse[0];
-                    var league = leagueDo.league;
+                    var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                    var league = leagueDo.Response[0].League;
 
                     _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(league);
-
-                    await _context.SaveChangesAsync();
                 }
+
+                await _context.SaveChangesAsync();
             }
             catch
             {
@@ -48,11 +46,23 @@ namespace AwayAPI.Services
             }
         }
 
-        public Task UpdateLeague(int id)
+        public async Task UpdateLeague(int id)
         {
             try
             {
-                throw new NotImplementedException();
+                //Call Response | GET : https://v3.football.api-sports.io/leagues?id=39
+                // Call endpoint for speciified leage ID.
+                // Transform data received into desired format.
+                // Update league value in database with latest versiion database
+                HttpClient client = _httpClientFactory.CreateClient(name: "apisports-football");
+
+                var leagueInDatabase = await _context.Leagues.FindAsync(id);
+                var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                var league = leagueDo.Response[0].League;
+
+                _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(league);
+
+                await _context.SaveChangesAsync();
             }
             catch
             {

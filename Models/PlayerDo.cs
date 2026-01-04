@@ -4,5 +4,5 @@ namespace Models;
 
 public record PlayerDo
 {
-    public required List<Player> Players {get;set;} = new();
+    public required Player Player {get;set;} = new();
 }

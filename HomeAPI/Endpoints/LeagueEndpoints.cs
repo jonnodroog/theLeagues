@@ -9,6 +9,7 @@ namespace HomeAPI.Endpoints
         {
             var leagueEndpointsGroup = routes.MapGroup("/leagues");
 
+            #region GetAllLeagues
             leagueEndpointsGroup.MapGet("", async (ILeagueService leagueService) =>
             {
                 var leagues = await leagueService.GetAllLeaguesAsync();
@@ -17,7 +18,9 @@ namespace HomeAPI.Endpoints
             .WithName("GetAllLeagues")
             .WithSummary("Retrieves all leagues")
             .WithDescription("This endpoint retrieves a list of all leagues available in the database.");
+            #endregion
 
+            #region GetLeagueById
             leagueEndpointsGroup.MapGet("/{id:int}", async (ILeagueService leagueService, int id) =>
             {
                 var league = await leagueService.GetLeagueByIdAsync(id);
@@ -27,6 +30,7 @@ namespace HomeAPI.Endpoints
             .WithName("GetLeagueById")
             .WithSummary("Retrieves a league by its ID")
             .WithDescription("This endpoint retrieves a specific league by its ID. If the league is not found, it returns a 404 Not Found response.");
+            #endregion 
         }
     }
 }
