@@ -18,7 +18,7 @@ namespace AwayAPI.Services
             _awaySettings = awaySettings.Value;
             _httpClientFactory = httpClientFactory;
         }
-        public async Task UpdateAllPlayers()
+        public async Task UpdateAllPlayers(CancellationToken ct)
         {
             try
             {
@@ -30,13 +30,13 @@ namespace AwayAPI.Services
 
                 foreach (var playerInDatabase in _context.Players)
                 {
-                    var playerResponse = await client.GetFromJsonAsync<ApiResponse<PlayerDo>>($"players/profiles?player={playerInDatabase.Id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                    var playerResponse = await client.GetFromJsonAsync<ApiResponse<PlayerDo>>($"players/profiles?player={playerInDatabase.Id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
                     var player = playerResponse.Response[0].Player;
 
                     _context.Players.Entry(playerInDatabase).CurrentValues.SetValues(player);
                 }
                 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(ct);
             }
             catch
             {
@@ -44,7 +44,7 @@ namespace AwayAPI.Services
             }
         }
 
-        public async Task UpdatePlayer(int id)
+        public async Task UpdatePlayer(int id, CancellationToken ct)
         {
             try
             {
@@ -55,12 +55,12 @@ namespace AwayAPI.Services
                 HttpClient client = _httpClientFactory.CreateClient(name: "apisports-football");
 
                 var playerInDatabase = await _context.Players.FindAsync(id);
-                var playerResponse = await client.GetFromJsonAsync<ApiResponse<PlayerDo>>($"players/profiles?player={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                var playerResponse = await client.GetFromJsonAsync<ApiResponse<PlayerDo>>($"players/profiles?player={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
                 var player = playerResponse.Response[0].Player;
 
                 _context.Players.Entry(playerInDatabase).CurrentValues.SetValues(player);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(ct);
             }
             catch
             {

@@ -18,7 +18,7 @@ namespace AwayAPI.Services
             _awaySettings = awaySettings.Value;
             _httpClientFactory = httpClientFactory;
         }
-        public async Task UpdateAllLeagues()
+        public async Task UpdateAllLeagues(CancellationToken ct)
         {
             try
             {
@@ -32,13 +32,13 @@ namespace AwayAPI.Services
                 {
                     var leagueInDatabase = await _context.Leagues.FindAsync(leagueId);
 
-                    var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                    var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
                     var league = leagueDo.Response[0].League;
 
                     _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(league);
                 }
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(ct);
             }
             catch
             {
@@ -46,7 +46,7 @@ namespace AwayAPI.Services
             }
         }
 
-        public async Task UpdateLeague(int id)
+        public async Task UpdateLeague(int id, CancellationToken ct)
         {
             try
             {
@@ -57,12 +57,12 @@ namespace AwayAPI.Services
                 HttpClient client = _httpClientFactory.CreateClient(name: "apisports-football");
 
                 var leagueInDatabase = await _context.Leagues.FindAsync(id);
-                var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
                 var league = leagueDo.Response[0].League;
 
                 _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(league);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(ct);
             }
             catch
             {

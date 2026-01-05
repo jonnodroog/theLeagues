@@ -57,13 +57,13 @@ namespace AwayAPI.Services
 
                 var teamInDatabase = await _context.Teams.FindAsync(id);
 
-                    var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
-                    var team = teamDo.Response[0].Team;
-                    var venue = teamDo.Response[0].Venue;
+                var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                var team = teamDo.Response[0].Team;
+                var venue = teamDo.Response[0].Venue;
+                
+                _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
 
-                    _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
-
-                    await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             catch
             {
