@@ -1,7 +1,13 @@
 using System;
 using System.Net.Http.Headers;
+using AwayAPI.BackgroundServices;
+using AwayAPI.BackgroundServices.Interfaces;
 using AwayAPI.DAL;
+using AwayAPI.Endpoints;
+using AwayAPI.Services;
+using AwayAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Models;
 
 namespace Extensions
 {
@@ -31,7 +37,22 @@ namespace Extensions
             );
             #endregion
             #region DAL
-                
+            var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Away_Dev");
+            builder.Services.AddSqlServer<AwayDBContext>(connectionString);    
+            #endregion
+
+            #region Background Queue
+            builder.Services.AddSingleton<IBackgroundTaskQueue>(new DefaultBackgroundTaskQueue(100));
+            #endregion
+
+            #region Background Worker Service
+            builder.Services.AddHostedService<QueuedHostedService>();
+            #endregion
+
+            #region Custom Services
+            builder.Services.AddScoped<ILeagueService, LeagueService>();
+            builder.Services.AddScoped<ITeamService, TeamService>();
+            builder.Services.AddScoped<IPlayerService, PlayerService>();
             #endregion
 
             #region Swagger
@@ -54,6 +75,8 @@ namespace Extensions
         public static void RegisterMiddleware(this WebApplication app)
         {
             //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-8.0#middleware-order
+            app.UseExceptionHandler("/Error");
+            app.UseHttpsRedirection();
 
             if (app.Environment.IsDevelopment())
             {
@@ -65,10 +88,11 @@ namespace Extensions
                     config.DocExpansion = "/swagger/{documentName}/swagger.json";
                     config.DocExpansion = "list";
                 });
-                app.UseExceptionHandler("/Error");
             }
 
-            app.UseHttpsRedirection();
+            app.RegisterLeagueEndpoints();
+            app.RegisterTeamEndpoints();
+            app.RegisterTeamEndpoints();
         }
     }
 }

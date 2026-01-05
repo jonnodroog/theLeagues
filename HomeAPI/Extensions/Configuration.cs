@@ -62,6 +62,7 @@ namespace HomeAPI.Extensions
         }
         public static void RegisterMiddlewares(this WebApplication app)
         {
+            //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-8.0#middleware-order
             app.UseHttpsRedirection();
 
             app.UseCors("AllowAnyOrigin");
