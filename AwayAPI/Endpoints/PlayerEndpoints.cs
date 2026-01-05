@@ -28,6 +28,19 @@ namespace AwayAPI.Endpoints
             #endregion
 
             #region UpdatePlayerById
+             playerEndpointsGroup.MapPost("/{id:int}", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
+                {
+                    await queue.QueueBackgroundWorkItemAsync(async ct =>
+                    {
+                        using(var scope = serviceProvider.CreateScope())
+                        {
+                            var processor = scope.ServiceProvider.GetRequiredService<PlayerService>();
+                            await processor.UpdatePlayerById(id,ct);
+                        }
+                    });
+
+                    return Results.Accepted("Job has been scheduled to update all players in database.");
+                });
             #endregion
         }
     }

@@ -38,7 +38,7 @@ namespace AwayAPI.Endpoints
                     using(var scope = serviceProvider.CreateScope())
                     {
                         var processor = scope.ServiceProvider.GetRequiredService<ILeagueService>();
-                        await processor.UpdateLeague(id,ct);
+                        await processor.UpdateLeagueById(id,ct);
                     }
                 });
 

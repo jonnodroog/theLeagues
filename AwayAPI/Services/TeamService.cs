@@ -18,7 +18,7 @@ namespace AwayAPI.Services
             _awaySettings = awaySettings.Value;
             _httpClientFactory = httpClientFactory;
         }
-        public async Task UpdateAllTeams()
+        public async Task UpdateAllTeams(CancellationToken ct)
         {
             try
             {
@@ -30,14 +30,14 @@ namespace AwayAPI.Services
 
                 foreach (var teamInDatabase in _context.Teams)
                 {
-                    var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={teamInDatabase.Id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                    var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={teamInDatabase.Id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web),ct);
                     var team = teamDo.Response[0].Team;
                     var venue = teamDo.Response[0].Venue;
 
                     _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
                 }
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(ct);
             }
             catch
             {
@@ -45,7 +45,7 @@ namespace AwayAPI.Services
             }
         }
 
-        public async Task UpdateTeam(int id)
+        public async Task UpdateTeamById(int id,CancellationToken ct)
         {
             try
             {
@@ -57,13 +57,13 @@ namespace AwayAPI.Services
 
                 var teamInDatabase = await _context.Teams.FindAsync(id);
 
-                var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web),ct);
                 var team = teamDo.Response[0].Team;
                 var venue = teamDo.Response[0].Venue;
                 
                 _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(ct);
             }
             catch
             {

@@ -46,7 +46,7 @@ namespace AwayAPI.Services
             }
         }
 
-        public async Task UpdateLeague(int id, CancellationToken ct)
+        public async Task UpdateLeagueById(int id, CancellationToken ct)
         {
             try
             {

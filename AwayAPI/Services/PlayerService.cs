@@ -44,7 +44,7 @@ namespace AwayAPI.Services
             }
         }
 
-        public async Task UpdatePlayer(int id, CancellationToken ct)
+        public async Task UpdatePlayerById(int id, CancellationToken ct)
         {
             try
             {
