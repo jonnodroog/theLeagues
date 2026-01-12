@@ -1,0 +1,15 @@
+services:
+  theleagues-db-container:
+    image: postgres:16
+    container_name: thleagues-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${THELEAGUES_ROOT_USER}
+      POSTGRES_PASSWORD: ${THELEAGUES_ROOT_PASSWORD}
+      POSTGRES_DB: ${THELEAGUES_DB_NAME}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./DATA:/var/lib/postgresql/data
+      # init script
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql

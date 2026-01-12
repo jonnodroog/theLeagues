@@ -1,5 +1,5 @@
 using Extensions;
-
+DotNetEnv.Env.TraversePath().Load();
 var builder = WebApplication.CreateBuilder(args);
 builder.RegisterServices();
 

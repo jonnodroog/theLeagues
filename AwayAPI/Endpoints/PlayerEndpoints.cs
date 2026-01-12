@@ -39,7 +39,7 @@ namespace AwayAPI.Endpoints
                         }
                     });
 
-                    return Results.Accepted("Job has been scheduled to update all players in database.");
+                    return Results.Accepted($"Job has been scheduled to update player with id: {id}.");
                 });
             #endregion
         }

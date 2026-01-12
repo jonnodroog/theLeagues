@@ -4,6 +4,6 @@ namespace HomeAPI.Extensions
 {
     public class HomeSettings 
     {
-        public string SQLiteConnectionString {get;set;} = "";
+        public string ConnectionString {get;set;} = "";
     }
 }

@@ -69,6 +69,16 @@ Desktop.ini
 *.tmp
 *.old
 
+# Secrets and Environment Variables
+.env
+*.env
+.env.local
+.env.*.local
 
+
+# Misc
 Admin/
 Data/
+
+.dockerignore
+**/obj/Docker/

@@ -63,11 +63,9 @@ namespace HomeAPI.Extensions
         public static void RegisterMiddlewares(this WebApplication app)
         {
             //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-8.0#middleware-order
+            app.UseExceptionHandler("/Error");
             app.UseHttpsRedirection();
-
             app.UseCors("AllowAnyOrigin");
-
-             app.UseExceptionHandler("/Error");
             //app.UseAuthorization();
 
             if (app.Environment.IsDevelopment())
@@ -81,7 +79,6 @@ namespace HomeAPI.Extensions
                     config.DocExpansion = "list";
                 });
             }
-
 
             app.RegisterLeagueEndpoints();
             app.RegisterPlayerEndpoints();

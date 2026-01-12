@@ -32,13 +32,25 @@ namespace Extensions
             builder.Services.AddHttpClient("apisports-football", configureClient =>
             {
                 configureClient.BaseAddress = new Uri("https://v3.football.api-sports.io");
-                configureClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(awaySettings.API_Host, awaySettings.API_Key);
+                configureClient.DefaultRequestHeaders.Add("x-apisports-key", awaySettings.API_Key);
             }
             );
             #endregion
+            
             #region DAL
-            var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Away_Dev");
-            builder.Services.AddSqlServer<AwayDBContext>(connectionString);    
+            
+            builder.Services.AddDbContext<AwayDBContext>(options =>
+                {
+                    var host = builder.Configuration["THELEAGUES_DB_HOST"];
+                    var port = builder.Configuration["THELEAGUES_DB_PORT"];
+                    var db = builder.Configuration["THELEAGUES_DB_NAME"];
+                    var user = builder.Configuration["THELEAGUES_ROOT_USER"];
+                    var pass = builder.Configuration["THELEAGUES_ROOT_PASSWORD"];
+
+                    var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
+                    
+                    options.UseNpgsql(connectionString);
+                });  
             #endregion
 
             #region Background Queue
