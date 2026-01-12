@@ -11,6 +11,5 @@ public record LeagueDTO
     public string Country {get;set;} = "";
     public string Logo {get;set;} = "";
     public string Flag {get;set;} = "";
-    public int? Season {get;set;}
     public List<TeamDTO> Teams {get;set;} = new();
 }
