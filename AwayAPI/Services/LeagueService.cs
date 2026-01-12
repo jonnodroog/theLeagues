@@ -33,23 +33,26 @@ namespace AwayAPI.Services
                     var leagueInDatabase = await _context.Leagues.FindAsync(leagueId);
 
                     var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
+
                     var league = leagueDo.Response[0].League;
+                    var country = leagueDo.Response[0].Country;
+
+                    LeagueDTO leagueDTO = new()
+                    {
+                        Id = league.Id,
+                        Name = league.Name,
+                        Country = country.Name,
+                        Logo = league.Logo,
+                        Flag = country.Flag,
+                    };
 
                     if(leagueInDatabase is not null)
                     {
-                         _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(league);
+                         _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(leagueDTO);
                     }
                     else
                     {
-                        _context.Leagues.Add(new LeagueDTO()
-                        {
-                            Id = league.Id,
-                            Name = league.Name,
-                            Country = league.Country,
-                            Logo = league.Logo,
-                            Flag = league.Flag,
-                            Season = league.Season
-                        });
+                        _context.Leagues.Add(leagueDTO);
                     }
                 }
 
