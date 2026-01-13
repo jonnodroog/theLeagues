@@ -22,9 +22,9 @@ namespace AwayAPI.Services
         {
             try
             {
-                //Call Response | GET : https://v3.football.api-sports.io/leagues?id=39
-                // Call endpoint for each league ID
-                // Transform data received into desired format.
+                //Call Response | GET : https://v3.football.api-sports.io/leagues/
+                // Call endpoint for all leagues
+                // Transform data received into desired format i.e. LeagueDTO object.
                 // Update database
                 HttpClient client = _httpClientFactory.CreateClient(name: "apisports-football");
 
@@ -34,8 +34,8 @@ namespace AwayAPI.Services
 
                     var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
 
-                    var league = leagueDo.Response[0].League;
-                    var country = leagueDo.Response[0].Country;
+                    var league = leagueDo?.Response[0].League;
+                    var country = leagueDo?.Response[0].Country;
 
                     LeagueDTO leagueDTO = new()
                     {
@@ -70,15 +70,15 @@ namespace AwayAPI.Services
             {
                 //Call Response | GET : https://v3.football.api-sports.io/leagues?id=39
                 // Call endpoint for speciified leage ID.
-                // Transform data received into desired format.
+                // Transform data received into desired format i.e. LeagueDTO object
                 // Update league value in database with latest versiion database
                 HttpClient client = _httpClientFactory.CreateClient(name: "apisports-football");
 
                 var leagueInDatabase = await _context.Leagues.FindAsync(id);
                 var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
 
-                var league = leagueDo.Response[0].League;
-                var country = leagueDo.Response[0].Country;
+                var league = leagueDo?.Response[0].League;
+                var country = leagueDo?.Response[0].Country;
 
                 LeagueDTO leagueDTO = new()
                 {

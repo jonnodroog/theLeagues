@@ -104,7 +104,7 @@ namespace Extensions
 
             app.RegisterLeagueEndpoints();
             app.RegisterTeamEndpoints();
-            app.RegisterTeamEndpoints();
+            app.RegisterPlayerEndpoints();
         }
     }
 }

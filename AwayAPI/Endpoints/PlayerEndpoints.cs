@@ -18,7 +18,7 @@ namespace AwayAPI.Endpoints
                     {
                         using(var scope = serviceProvider.CreateScope())
                         {
-                            var processor = scope.ServiceProvider.GetRequiredService<PlayerService>();
+                            var processor = scope.ServiceProvider.GetRequiredService<IPlayerService>();
                             await processor.UpdateAllPlayers(ct);
                         }
                     });
@@ -34,7 +34,7 @@ namespace AwayAPI.Endpoints
                     {
                         using(var scope = serviceProvider.CreateScope())
                         {
-                            var processor = scope.ServiceProvider.GetRequiredService<PlayerService>();
+                            var processor = scope.ServiceProvider.GetRequiredService<IPlayerService>();
                             await processor.UpdatePlayerById(id,ct);
                         }
                     });

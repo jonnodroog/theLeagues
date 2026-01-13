@@ -22,21 +22,54 @@ namespace AwayAPI.Services
         {
             try
             {
-                //Call Response | GET : https://v3.football.api-sports.io/teams?id=39
-                // Call endpoint for each team ID
+                //API-Football doesn't have a get all for teams
+                //Need to get standings for each league of specified season
+                //Team data can be found in standings for each team.
                 // Transform data received into desired format.
                 // Update database
+                //TODO: Implement removal of teams from leagues if they no longer exist in standings.
                 HttpClient client = _httpClientFactory.CreateClient(name: "apisports-football");
 
-                foreach (var teamInDatabase in _context.Teams)
+
+                foreach(var leagueId in _awaySettings.LeagueIdNumbers)
                 {
-                    var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={teamInDatabase.Id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web),ct);
-                    var team = teamDo.Response[0].Team;
-                    var venue = teamDo.Response[0].Venue;
+                    var leagueInDatabase = await _context.Leagues.FindAsync(leagueId);
+                    var standingsData = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"standings?league={leagueId}&season={_awaySettings.CurrentSeason}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web),ct);
 
-                    _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
+                    foreach(var standing in standingsData.Response[0].League.Standings)
+                    {
+                        var teamInDatabase = leagueInDatabase?.Teams.Find(t => t.Id == standing.Team.Id);
+
+                        TeamDTO teamDTO = new()
+                        {
+                            Id = standing.Team.Id,
+                            Name = standing.Team.Name,
+                            Code = standing.Team.Code,
+                            Country = standing.Team.Country,
+                            Founded = standing.Team.Founded,
+                            National = standing.Team.National,
+                            Logo = standing.Team.Logo,
+                            CurrentLeagueRank = standing.Rank,
+                            Points = standing.Points,
+                            GoalsDiff = standing.GoalsDiff,
+                            Played = standing.All.Played,
+                            Win = standing.All.Win,
+                            Draw = standing.All.Draw,
+                            Lose = standing.All.Lose,
+                            GoalsFor = standing.All.Goals.For,
+                            GoalsAgainst = standing.All.Goals.Against
+                        };
+
+                        if(leagueInDatabase.Teams.Exists(t => t.Id == teamDTO.Id))
+                        {
+                            teamInDatabase = teamDTO;
+                        }
+                        else
+                        {
+                            leagueInDatabase.Teams.Add(teamDTO);
+                        }
+                    }
                 }
-
                 await _context.SaveChangesAsync(ct);
             }
             catch
