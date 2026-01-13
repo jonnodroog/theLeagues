@@ -1,6 +1,7 @@
 using AwayAPI.DAL;
 using AwayAPI.Services.Interfaces;
 using Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Models;
 using Models.DTO;
@@ -30,7 +31,7 @@ namespace AwayAPI.Services
 
                 foreach (int leagueId in _awaySettings.LeagueIdNumbers)
                 {
-                    var leagueInDatabase = await _context.Leagues.FindAsync(leagueId);
+                    var leagueInDatabase = await _context.Leagues.FirstOrDefaultAsync(l => l.Id == leagueId);
 
                     var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
 
@@ -41,9 +42,8 @@ namespace AwayAPI.Services
                     {
                         Id = league.Id,
                         Name = league.Name,
-                        Country = country.Name,
-                        Logo = league.Logo,
-                        Flag = country.Flag,
+                        Country = country,
+                        Logo = league.Logo
                     };
 
                     if (leagueInDatabase is not null)
@@ -84,9 +84,8 @@ namespace AwayAPI.Services
                 {
                     Id = league.Id,
                     Name = league.Name,
-                    Country = country.Name,
-                    Logo = league.Logo,
-                    Flag = country.Flag,
+                    Country = country,
+                    Logo = league.Logo
                 };
 
                 if (leagueInDatabase is not null)

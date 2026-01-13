@@ -14,13 +14,10 @@ namespace AwayAPI.Endpoints
             #region UpdateAllLeagues
             leagueEndpointsGroup.MapPost("", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
             {
-                await queue.QueueBackgroundWorkItemAsync(async ct =>
+                await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {
-                    using(var scope = serviceProvider.CreateScope())
-                    {
-                        var processor = scope.ServiceProvider.GetRequiredService<ILeagueService>();
-                        await processor.UpdateAllLeagues(ct);
-                    }
+                    var processor = scopedProvider.GetRequiredService<ILeagueService>();
+                    await processor.UpdateAllLeagues(ct);
                 });
 
                 return Results.Accepted("Job has been scheduled to update all leagues in database.");
@@ -33,13 +30,11 @@ namespace AwayAPI.Endpoints
             #region UpdateLeagueById
             leagueEndpointsGroup.MapPost("/{id:int}", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
             {
-                await queue.QueueBackgroundWorkItemAsync(async ct =>
+                await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {
-                    using(var scope = serviceProvider.CreateScope())
-                    {
-                        var processor = scope.ServiceProvider.GetRequiredService<ILeagueService>();
-                        await processor.UpdateLeagueById(id,ct);
-                    }
+
+                    var processor = scopedProvider.GetRequiredService<ILeagueService>();
+                    await processor.UpdateLeagueById(id, ct);
                 });
 
                 // Return 202 instead of 200 because work has been accepted and not necessarily completed.

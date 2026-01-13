@@ -14,13 +14,10 @@ namespace AwayAPI.Endpoints
             #region UpdateAllTeams
             teamEndpointsGroup.MapPost("", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
             {
-                await queue.QueueBackgroundWorkItemAsync(async ct =>
+                await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {
-                    using(var scope = serviceProvider.CreateScope())
-                    {
-                        var processor = scope.ServiceProvider.GetRequiredService<ITeamService>();
-                        await processor.UpdateAllTeams(ct);
-                    }
+                    var processor = scopedProvider.GetRequiredService<ITeamService>();
+                    await processor.UpdateAllTeams(ct);
                 });
 
                 return Results.Accepted("Job has been scheduled to update all teams in database.");
@@ -30,13 +27,10 @@ namespace AwayAPI.Endpoints
             #region UpdateTeamById
             teamEndpointsGroup.MapPost("/{id:int}", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
             {
-                await queue.QueueBackgroundWorkItemAsync(async ct =>
+                await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {
-                    using(var scope = serviceProvider.CreateScope())
-                    {
-                        var processor = scope.ServiceProvider.GetRequiredService<ITeamService>();
-                        await processor.UpdateTeamById(id,ct);
-                    }
+                    var processor = scopedProvider.GetRequiredService<ITeamService>();
+                    await processor.UpdateTeamById(id, ct);
                 });
 
                 return Results.Accepted($"Job has been scheduled to update team with id: {id}");

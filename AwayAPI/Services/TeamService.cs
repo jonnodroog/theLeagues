@@ -1,6 +1,7 @@
 using AwayAPI.DAL;
 using AwayAPI.Services.Interfaces;
 using Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Models;
 using Models.DTO;
@@ -31,46 +32,51 @@ namespace AwayAPI.Services
                 HttpClient client = _httpClientFactory.CreateClient(name: "apisports-football");
 
 
-                foreach(var leagueId in _awaySettings.LeagueIdNumbers)
+                foreach (var leagueId in _awaySettings.LeagueIdNumbers)
                 {
-                    var leagueInDatabase = await _context.Leagues.FindAsync(leagueId);
-                    var standingsData = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"standings?league={leagueId}&season={_awaySettings.CurrentSeason}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web),ct);
+                    var leagueInDatabase = await _context.Leagues.Include(l => l.Teams).FirstOrDefaultAsync(l => l.Id == leagueId, ct);
+                    var standingsData = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"standings?league={leagueId}&season={_awaySettings.CurrentSeason}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
 
-                    foreach(var standing in standingsData.Response[0].League.Standings)
+                    if (leagueInDatabase is not null)
                     {
-                        var teamInDatabase = leagueInDatabase?.Teams.Find(t => t.Id == standing.Team.Id);
+                        foreach (var standing in standingsData.Response.First().League.Standings.First())
+                        {
+                            var teamInDatabase = leagueInDatabase?.Teams.FirstOrDefault(t => t.Id == standing.Team.Id);
 
-                        TeamDTO teamDTO = new()
-                        {
-                            Id = standing.Team.Id,
-                            Name = standing.Team.Name,
-                            Code = standing.Team.Code,
-                            Country = standing.Team.Country,
-                            Founded = standing.Team.Founded,
-                            National = standing.Team.National,
-                            Logo = standing.Team.Logo,
-                            CurrentLeagueRank = standing.Rank,
-                            Points = standing.Points,
-                            GoalsDiff = standing.GoalsDiff,
-                            Played = standing.All.Played,
-                            Win = standing.All.Win,
-                            Draw = standing.All.Draw,
-                            Lose = standing.All.Lose,
-                            GoalsFor = standing.All.Goals.For,
-                            GoalsAgainst = standing.All.Goals.Against
-                        };
+                            TeamDTO teamDTO = new()
+                            {
+                                Id = standing.Team.Id,
+                                Name = standing.Team.Name,
+                                Code = standing.Team.Code,
+                                Country = standing.Team.Country,
+                                Founded = standing.Team.Founded,
+                                National = standing.Team.National,
+                                Logo = standing.Team.Logo,
+                                CurrentLeagueRank = standing.Rank,
+                                Points = standing.Points,
+                                GoalsDiff = standing.GoalsDiff,
+                                Played = standing.All.Played,
+                                Win = standing.All.Win,
+                                Draw = standing.All.Draw,
+                                Lose = standing.All.Lose,
+                                GoalsFor = standing.All.Goals.For,
+                                GoalsAgainst = standing.All.Goals.Against
+                            };
 
-                        if(leagueInDatabase.Teams.Exists(t => t.Id == teamDTO.Id))
-                        {
-                            teamInDatabase = teamDTO;
+                            if (teamInDatabase is not null)
+                            {
+                                _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(teamDTO);
+                            }
+                            else
+                            {
+                                leagueInDatabase?.Teams.Add(teamDTO);
+                            }
                         }
-                        else
-                        {
-                            leagueInDatabase.Teams.Add(teamDTO);
-                        }
+                        Console.WriteLine($"\n\nALL TEAMS HAVE BEEN ADDED FOR {standingsData.Response.First().League.Name}\n\n");
                     }
+                    Console.WriteLine("\n\nALL TEAMS HAVE BEEN ADDED\n\n");
+                    await _context.SaveChangesAsync(ct);
                 }
-                await _context.SaveChangesAsync(ct);
             }
             catch
             {
@@ -78,7 +84,7 @@ namespace AwayAPI.Services
             }
         }
 
-        public async Task UpdateTeamById(int id,CancellationToken ct)
+        public async Task UpdateTeamById(int id, CancellationToken ct)
         {
             try
             {
@@ -90,13 +96,27 @@ namespace AwayAPI.Services
 
                 var teamInDatabase = await _context.Teams.FindAsync(id);
 
-                var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web),ct);
-                var team = teamDo.Response[0].Team;
-                var venue = teamDo.Response[0].Venue;
-                
-                _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
+                if (teamInDatabase is not null)
+                {
+                    var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
+                    var team = teamDo.Response[0].Team;
+                    var venue = teamDo.Response[0].Venue;
 
-                await _context.SaveChangesAsync(ct);
+                    TeamDTO teamDTO = new()
+                    {
+                        Id = team.Id,
+                        Name = team.Name,
+                        Code = team.Code,
+                        Country = team.Country,
+                        Founded = team.Founded,
+                        National = team.National,
+                        Logo = team.Logo
+                    };
+
+                    _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
+
+                    await _context.SaveChangesAsync(ct);
+                }
             }
             catch
             {

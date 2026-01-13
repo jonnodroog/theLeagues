@@ -3,7 +3,7 @@ namespace Models;
 public record Standing 
 {
     public int Rank {get;set;}
-    public Team Team {get;set;} = new();
+    public Team? Team {get;set;}
     public int? Points {get;set;}
     public int? GoalsDiff {get;set;}
     public string Group {get;set;}= "";

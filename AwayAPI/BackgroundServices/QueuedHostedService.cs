@@ -25,7 +25,7 @@ public class QueuedHostedService : BackgroundService
             try
             {
                 using var scope = _serviceProvider.CreateScope();
-                await workItem(stoppingToken); 
+                await workItem(scope.ServiceProvider, stoppingToken); 
             }catch(Exception ex)
             {
                 Console.WriteLine($"Failed to execute task in background service layer: {ex.Message}");

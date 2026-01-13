@@ -12,35 +12,29 @@ namespace AwayAPI.Endpoints
             var playerEndpointsGroup = routes.MapGroup("/players");
 
             #region UpdateAllPlayers
-                playerEndpointsGroup.MapPost("", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
+            playerEndpointsGroup.MapPost("", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
+            {
+                await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {
-                    await queue.QueueBackgroundWorkItemAsync(async ct =>
-                    {
-                        using(var scope = serviceProvider.CreateScope())
-                        {
-                            var processor = scope.ServiceProvider.GetRequiredService<IPlayerService>();
-                            await processor.UpdateAllPlayers(ct);
-                        }
-                    });
-
-                    return Results.Accepted("Job has been scheduled to update all players in database.");
+                    var processor = scopedProvider.GetRequiredService<IPlayerService>();
+                    await processor.UpdateAllPlayers(ct);
                 });
+
+                return Results.Accepted("Job has been scheduled to update all players in database.");
+            });
             #endregion
 
             #region UpdatePlayerById
-             playerEndpointsGroup.MapPost("/{id:int}", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
-                {
-                    await queue.QueueBackgroundWorkItemAsync(async ct =>
-                    {
-                        using(var scope = serviceProvider.CreateScope())
-                        {
-                            var processor = scope.ServiceProvider.GetRequiredService<IPlayerService>();
-                            await processor.UpdatePlayerById(id,ct);
-                        }
-                    });
+            playerEndpointsGroup.MapPost("/{id:int}", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
+               {
+                   await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
+                   {
+                       var processor = scopedProvider.GetRequiredService<IPlayerService>();
+                       await processor.UpdatePlayerById(id, ct);
+                   });
 
-                    return Results.Accepted($"Job has been scheduled to update player with id: {id}.");
-                });
+                   return Results.Accepted($"Job has been scheduled to update player with id: {id}.");
+               });
             #endregion
         }
     }
