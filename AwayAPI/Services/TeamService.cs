@@ -35,7 +35,8 @@ namespace AwayAPI.Services
                 foreach (var leagueId in _awaySettings.LeagueIdNumbers)
                 {
                     var leagueInDatabase = await _context.Leagues.Include(l => l.Teams).FirstOrDefaultAsync(l => l.Id == leagueId, ct);
-                    var standingsData = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"standings?league={leagueId}&season={_awaySettings.CurrentSeason}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
+                    var standingsData = await client.GetFromJsonAsync<ApiResponse<LeagueStandingDo>>($"standings?league={leagueId}&season={_awaySettings.CurrentSeason}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
+                    var leagueFromStandingsCall = standingsData.Response.First().League;
 
                     if (leagueInDatabase is not null)
                     {
@@ -48,7 +49,7 @@ namespace AwayAPI.Services
                                 Id = standing.Team.Id,
                                 Name = standing.Team.Name,
                                 Code = standing.Team.Code,
-                                Country = standing.Team.Country,
+                                Country = leagueFromStandingsCall.Country,
                                 Founded = standing.Team.Founded,
                                 National = standing.Team.National,
                                 Logo = standing.Team.Logo,
@@ -74,13 +75,17 @@ namespace AwayAPI.Services
                         }
                         Console.WriteLine($"\n\nALL TEAMS HAVE BEEN ADDED FOR {standingsData.Response.First().League.Name}\n\n");
                     }
-                    Console.WriteLine("\n\nALL TEAMS HAVE BEEN ADDED\n\n");
-                    await _context.SaveChangesAsync(ct);
                 }
+
+                await _context.SaveChangesAsync(ct);
             }
             catch
             {
                 throw;
+            }
+            finally
+            {
+                Console.WriteLine("\n\nALL TEAMS HAVE BEEN SUCCESSFULLY DDED\n\n");
             }
         }
 

@@ -62,6 +62,10 @@ namespace AwayAPI.Services
             {
                 throw;
             }
+            finally
+            {
+                Console.WriteLine("\n\nALL LEAGUES HAVE BEEN  SUCCESSFULLY ADDED\n\n");
+            }
         }
 
         public async Task UpdateLeagueById(int id, CancellationToken ct)
