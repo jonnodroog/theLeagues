@@ -12,7 +12,7 @@ namespace AwayAPI.Endpoints
             var leagueEndpointsGroup = routes.MapGroup("/leagues");
 
             #region UpdateAllLeagues
-            leagueEndpointsGroup.MapPost("", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
+            leagueEndpointsGroup.MapPost("", async (IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
             {
                 await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {
@@ -28,7 +28,7 @@ namespace AwayAPI.Endpoints
             #endregion
 
             #region UpdateLeagueById
-            leagueEndpointsGroup.MapPost("/{id:int}", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
+            leagueEndpointsGroup.MapPost("/{id:int}", async (IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
             {
                 await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {

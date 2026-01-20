@@ -10,10 +10,10 @@ public sealed class DefaultBackgroundTaskQueue : IBackgroundTaskQueue
     public DefaultBackgroundTaskQueue(int capacity)
     {
         BoundedChannelOptions options = new(capacity)
-        {
-            FullMode = BoundedChannelFullMode.Wait
-        };
-        _queue = Channel.CreateBounded<Func<IServiceProvider, CancellationToken, ValueTask>>(options);
+         {
+             FullMode = BoundedChannelFullMode.Wait
+         };
+         _queue = Channel.CreateBounded<Func<IServiceProvider, CancellationToken, ValueTask>>(options);
     }
 
     public async ValueTask QueueBackgroundWorkItemAsync(
@@ -24,10 +24,10 @@ public sealed class DefaultBackgroundTaskQueue : IBackgroundTaskQueue
         await _queue.Writer.WriteAsync(workItem);
     }
 
-    public async ValueTask<Func<IServiceProvider,CancellationToken, ValueTask>> DequeueAsync(
+    public async ValueTask<Func<IServiceProvider, CancellationToken, ValueTask>> DequeueAsync(
         CancellationToken cancellationToken)
     {
-        Func<IServiceProvider,CancellationToken, ValueTask>? workItem =
+        Func<IServiceProvider, CancellationToken, ValueTask>? workItem =
             await _queue.Reader.ReadAsync(cancellationToken);
 
         return workItem;

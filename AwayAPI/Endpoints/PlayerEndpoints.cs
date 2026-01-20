@@ -12,7 +12,7 @@ namespace AwayAPI.Endpoints
             var playerEndpointsGroup = routes.MapGroup("/players");
 
             #region UpdateAllPlayers
-            playerEndpointsGroup.MapPost("", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
+            playerEndpointsGroup.MapPost("", async (IBackgroundTaskQueue queue, IServiceProvider serviceProvider) =>
             {
                 await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                 {
@@ -25,7 +25,7 @@ namespace AwayAPI.Endpoints
             #endregion
 
             #region UpdatePlayerById
-            playerEndpointsGroup.MapPost("/{id:int}", async (AwayDBContext awayDbContext, IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
+            playerEndpointsGroup.MapPost("/{id:int}", async (IBackgroundTaskQueue queue, IServiceProvider serviceProvider, int id) =>
                {
                    await queue.QueueBackgroundWorkItemAsync(async (scopedProvider, ct) =>
                    {

@@ -35,31 +35,35 @@ namespace AwayAPI.Services
 
                     var leagueDo = await client.GetFromJsonAsync<ApiResponse<LeagueDo>>($"leagues?id={leagueId}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
 
-                    var league = leagueDo?.Response[0].League;
-                    var country = leagueDo?.Response[0].Country;
+                    if (leagueDo?.Response.Count > 0)
+                    {
+                        var league = leagueDo?.Response[0].League;
+                        var country = leagueDo?.Response[0].Country;
 
-                    LeagueDTO leagueDTO = new()
-                    {
-                        Id = league.Id,
-                        Name = league.Name,
-                        Country = country,
-                        Logo = league.Logo
-                    };
+                        LeagueDTO leagueDTO = new()
+                        {
+                            Id = league.Id,
+                            Name = league.Name,
+                            Country = country,
+                            Logo = league.Logo
+                        };
 
-                    if (leagueInDatabase is not null)
-                    {
-                        _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(leagueDTO);
-                    }
-                    else
-                    {
-                        _context.Leagues.Add(leagueDTO);
+                        if (leagueInDatabase is not null)
+                        {
+                            _context.Leagues.Entry(leagueInDatabase).CurrentValues.SetValues(leagueDTO);
+                        }
+                        else
+                        {
+                            _context.Leagues.Add(leagueDTO);
+                        }
                     }
                 }
 
                 await _context.SaveChangesAsync(ct);
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"CRITICAL ERROR in {ex.Source}: {ex.ToString()}");
                 throw;
             }
             finally

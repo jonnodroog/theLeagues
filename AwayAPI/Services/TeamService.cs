@@ -37,7 +37,7 @@ namespace AwayAPI.Services
                     var leagueInDatabase = await _context.Leagues.Include(l => l.Teams).FirstOrDefaultAsync(l => l.Id == leagueId, ct);
                     var standingsData = await client.GetFromJsonAsync<ApiResponse<LeagueStandingDo>>($"standings?league={leagueId}&season={_awaySettings.CurrentSeason}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
 
-                    if (standingsData is not null)
+                    if (standingsData?.Response.Count > 0)
                     {
                         var leagueFromStandingsCall = standingsData.Response.FirstOrDefault().League;
 
@@ -109,23 +109,27 @@ namespace AwayAPI.Services
                 if (teamInDatabase is not null)
                 {
                     var teamDo = await client.GetFromJsonAsync<ApiResponse<TeamDo>>($"teams?id={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
-                    var team = teamDo.Response[0].Team;
-                    var venue = teamDo.Response[0].Venue;
 
-                    TeamDTO teamDTO = new()
+                    if (teamDo.Response.Count > 0)
                     {
-                        Id = team.Id,
-                        Name = team.Name,
-                        Code = team.Code,
-                        Country = team.Country,
-                        Founded = team.Founded,
-                        National = team.National,
-                        Logo = team.Logo
-                    };
+                        var team = teamDo.Response[0].Team;
+                        var venue = teamDo.Response[0].Venue;
 
-                    _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
+                        TeamDTO teamDTO = new()
+                        {
+                            Id = team.Id,
+                            Name = team.Name,
+                            Code = team.Code,
+                            Country = team.Country,
+                            Founded = team.Founded,
+                            National = team.National,
+                            Logo = team.Logo
+                        };
 
-                    await _context.SaveChangesAsync(ct);
+                        _context.Teams.Entry(teamInDatabase).CurrentValues.SetValues(team);
+
+                        await _context.SaveChangesAsync(ct);
+                    }
                 }
             }
             catch

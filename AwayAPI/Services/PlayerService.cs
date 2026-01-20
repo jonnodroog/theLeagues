@@ -31,11 +31,15 @@ namespace AwayAPI.Services
                 foreach (var playerInDatabase in _context.Players)
                 {
                     var playerResponse = await client.GetFromJsonAsync<ApiResponse<PlayerDo>>($"players/profiles?player={playerInDatabase.Id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
-                    var player = playerResponse.Response[0].Player;
 
-                    _context.Players.Entry(playerInDatabase).CurrentValues.SetValues(player);
+                    if (playerResponse?.Response.Count > 0)
+                    {
+                        var player = playerResponse.Response[0].Player;
+
+                        _context.Players.Entry(playerInDatabase).CurrentValues.SetValues(player);
+                    }
                 }
-                
+
                 await _context.SaveChangesAsync(ct);
             }
             catch
@@ -56,11 +60,15 @@ namespace AwayAPI.Services
 
                 var playerInDatabase = await _context.Players.FindAsync(id);
                 var playerResponse = await client.GetFromJsonAsync<ApiResponse<PlayerDo>>($"players/profiles?player={id}", new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web), ct);
-                var player = playerResponse.Response[0].Player;
 
-                _context.Players.Entry(playerInDatabase).CurrentValues.SetValues(player);
+                if (playerResponse?.Response.Count > 0)
+                {
+                    var player = playerResponse.Response[0].Player;
 
-                await _context.SaveChangesAsync(ct);
+                    _context.Players.Entry(playerInDatabase).CurrentValues.SetValues(player);
+
+                    await _context.SaveChangesAsync(ct);
+                }
             }
             catch
             {
