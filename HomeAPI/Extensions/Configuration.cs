@@ -17,15 +17,29 @@ namespace HomeAPI.Extensions
             #region Configure environment specific settings
                 var configBuilder = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
-                            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
-                            .Build();
+                            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
 
                 builder.Services.Configure<HomeSettings>(builder.Configuration.GetSection("HomeSettings"));
             #endregion
+
+             #region HTTP Client
+            builder.Services.AddHttpClient();
+            #endregion
             
             #region DAL
-                var connectionString = builder.Configuration.GetConnectionString("ConnectionString_Home_Dev");
-                builder.Services.AddSqlServer<HomeDBContext>(connectionString);
+            var host = builder.Configuration["THELEAGUES_DB_HOST"];
+            var port = builder.Configuration["THELEAGUES_DB_PORT"];
+            var db = builder.Configuration["THELEAGUES_DB_NAME"];
+            var user = builder.Configuration["THELEAGUES_ROOT_USER"];
+            var pass = builder.Configuration["THELEAGUES_ROOT_PASSWORD"];
+
+            var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
+            builder.Services.AddDbContext<HomeDBContext>(options =>
+                {   
+                    options.UseNpgsql(connectionString);
+                });  
+            builder.Services.AddHealthChecks()
+                            .AddNpgSql(connectionString!, name: "theleagues-db");
             #endregion
 
             #region Rate limiting
@@ -34,8 +48,8 @@ namespace HomeAPI.Extensions
 
             #region Declare custom services
             builder.Services.AddScoped<ILeagueService, LeagueService>();
-                builder.Services.AddScoped<ITeamService, TeamService>();
-                builder.Services.AddScoped<IPlayerService, PlayerService>();
+            builder.Services.AddScoped<ITeamService, TeamService>();
+            builder.Services.AddScoped<IPlayerService, PlayerService>();
             #endregion
 
             #region Swagger
@@ -83,6 +97,7 @@ namespace HomeAPI.Extensions
             app.RegisterLeagueEndpoints();
             app.RegisterPlayerEndpoints();
             app.RegisterTeamEndpoints();
+            app.MapHealthChecks("/health");
         }
     }
 }

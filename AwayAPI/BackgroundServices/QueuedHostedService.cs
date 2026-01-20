@@ -1,4 +1,5 @@
 namespace AwayAPI.BackgroundServices;
+
 using AwayAPI.BackgroundServices.Interfaces;
 
 public class QueuedHostedService : BackgroundService
@@ -16,17 +17,18 @@ public class QueuedHostedService : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            // Wait for a job from the queue
-            // Note that the loop only continues if an item is in the queue, otherwise execution will wait here.
-            var workItem = await _taskQueue.DequeueAsync(stoppingToken);
-
             // Execute the job inside a fresh scope
             // Fresh scope is needed so that a fresh db conbtext is used in the processing logic. 
             try
             {
+                // Wait for a job from the queue
+                // Note that the loop only continues if an item is in the queue, otherwise execution will wait here.
+                var workItem = await _taskQueue.DequeueAsync(stoppingToken);
+
                 using var scope = _serviceProvider.CreateScope();
-                await workItem(scope.ServiceProvider, stoppingToken); 
-            }catch(Exception ex)
+                await workItem(scope.ServiceProvider, stoppingToken);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"Failed to execute task in background service layer: {ex.Message}");
             }

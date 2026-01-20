@@ -7,9 +7,12 @@ services:
       POSTGRES_USER: ${THELEAGUES_ROOT_USER}
       POSTGRES_PASSWORD: ${THELEAGUES_ROOT_PASSWORD}
       POSTGRES_DB: ${THELEAGUES_DB_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${THELEAGUES_ROOT_USER} -d ${THELEAGUES_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "127.0.0.1:5432:5432"
     volumes:
       - ./DATA:/var/lib/postgresql/data
-      # init script
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql

@@ -4,6 +4,6 @@ namespace HomeAPI.Extensions
 {
     public class HomeSettings 
     {
-        public string ConnectionString {get;set;} = "";
+        //No need for settings at this point
     }
 }

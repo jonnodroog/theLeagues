@@ -38,19 +38,19 @@ namespace Extensions
             #endregion
             
             #region DAL
-            
-            builder.Services.AddDbContext<AwayDBContext>(options =>
-                {
-                    var host = builder.Configuration["THELEAGUES_DB_HOST"];
-                    var port = builder.Configuration["THELEAGUES_DB_PORT"];
-                    var db = builder.Configuration["THELEAGUES_DB_NAME"];
-                    var user = builder.Configuration["THELEAGUES_ROOT_USER"];
-                    var pass = builder.Configuration["THELEAGUES_ROOT_PASSWORD"];
+            var host = builder.Configuration["THELEAGUES_DB_HOST"];
+            var port = builder.Configuration["THELEAGUES_DB_PORT"];
+            var db = builder.Configuration["THELEAGUES_DB_NAME"];
+            var user = builder.Configuration["THELEAGUES_ROOT_USER"];
+            var pass = builder.Configuration["THELEAGUES_ROOT_PASSWORD"];
 
-                    var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
-                    
+            var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
+            builder.Services.AddDbContext<AwayDBContext>(options =>
+                {   
                     options.UseNpgsql(connectionString);
                 });  
+            builder.Services.AddHealthChecks()
+                            .AddNpgSql(connectionString!, name: "theleagues-db");
             #endregion
 
             #region Background Queue
@@ -105,6 +105,7 @@ namespace Extensions
             app.RegisterLeagueEndpoints();
             app.RegisterTeamEndpoints();
             app.RegisterPlayerEndpoints();
+            app.MapHealthChecks("/health");
         }
     }
 }
