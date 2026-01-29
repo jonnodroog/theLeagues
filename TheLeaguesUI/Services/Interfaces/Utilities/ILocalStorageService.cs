@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace TheLeaguesUI.Services.Interfaces
+namespace TheLeaguesUI.Services.Interfaces.Utilities
 {
     public interface ILocalStorageService
     {

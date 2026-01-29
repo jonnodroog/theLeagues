@@ -1,10 +1,10 @@
 using System.Text.Json;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
+using TheLeaguesUI.Services.Interfaces.Utilities;
 
 namespace TheLeaguesUI.Services
 {
-    public class LocalStorageService
+    public class LocalStorageService : ILocalStorageService
     {
         private readonly IJSRuntime _jsRuntime;
 
@@ -21,7 +21,7 @@ namespace TheLeaguesUI.Services
 
         public async Task<T?> GetItemAsync<T>(string key)
         {
-            var json = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", key);
+            var json = await _jsRuntime.InvokeAsync<string?>("localStorage.getItem", key);
             if (json == null)
             {
                 return default;
@@ -37,6 +37,12 @@ namespace TheLeaguesUI.Services
         public async Task ClearAsync()
         {
             await _jsRuntime.InvokeVoidAsync("localStorage.clear");
+        }
+
+        public async Task<bool> ContainsKeyAsync(string key)
+        {
+            var result = await GetItemAsync<string>(key);
+            return result != null;  //the expression says result is not null, if the result is null then the expression returns true. If the result is null then the expression returns false.
         }
     }
 }
