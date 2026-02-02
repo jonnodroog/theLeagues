@@ -1,12 +1,13 @@
 using Models.DTO;
+using TheLeaguesUI.Extensions.Interfaces;
 
 namespace TheLeaguesUI.Services.Interfaces
 {
     public interface ITeamService
     {
-        Task<List<TeamDTO>> GetAllTeams();
-        Task<List<TeamDTO>> GetAllTeamsInLeague(int leagueId);
-        Task<TeamDTO> GetTeamById(int teamId);
+        Task<IOperationalResult<List<TeamDTO>>> GetAllTeams();
+        Task<IOperationalResult<List<TeamDTO>>> GetAllTeamsInLeague(int leagueId);
+        Task<IOperationalResult<TeamDTO>> GetTeamById(int teamId);
     }
 }
 

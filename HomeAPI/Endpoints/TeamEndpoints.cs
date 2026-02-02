@@ -30,7 +30,7 @@ namespace HomeAPI.Endpoints
             #endregion
             
             #region GetTeamByTeamId
-            teamEndpointsGroup.MapGet("/team-id={id:int}", async (ITeamService teamService, int id) =>
+            teamEndpointsGroup.MapGet("/teams/{id:int}", async (ITeamService teamService, int id) =>
             {
                 var team = await teamService.GetByIdAsync(id);
 

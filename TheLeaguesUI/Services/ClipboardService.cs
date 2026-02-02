@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
-using TheLeaguesUI.Services.Interfaces;
+using TheLeaguesUI.Services.Interfaces.Utilities;
 
 namespace TheLeaguesUI.Services
 {
