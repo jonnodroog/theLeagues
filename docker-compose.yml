@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${THELEAGUES_ROOT_PASSWORD}
       POSTGRES_DB: ${THELEAGUES_DB_NAME}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${THELEAGUES_ROOT_USER} -d ${THELEAGUES_ROOT_PASSWORD}"]
+      test: ["CMD-SHELL", "pg_isready -U $$THELEAGUES_ROOT_USER -d $$THELEAGUES_DB_NAME"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -16,3 +16,44 @@ services:
       - "127.0.0.1:5432:5432"
     volumes:
       - ./DATA:/var/lib/postgresql/data
+
+  home-api-container:
+    build:
+      context: /HomeApi 
+      dockerfile: home-api-dockerfile
+    container_name: home-api-dev
+    depends_on:
+      theleagues-db-container:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnection=Host=theleagues-db-container;Database=${THELEAGUES_DB_NAME};Username=${THELEAGUES_ROOT_USER};Password=${THELEAGUES_ROOT_PASSWORD}
+    ports:
+      - "5001:8080"
+
+  away-api-container:
+    build:
+      context: /AwayApi
+      dockerfile: away-api-dockerfile
+    container_name: away-api-dev
+    depends_on:
+      theleagues-db-container:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnection=Host=theleagues-db-container;Database=${THELEAGUES_DB_NAME};Username=${THELEAGUES_ROOT_USER};Password=${THELEAGUES_ROOT_PASSWORD}
+    ports:
+      - "5002:8080"
+
+  theleagues-ui-container:
+    build:
+      context: /TheLeaguesUI
+      dockerfile: ui-dockerfile
+    container_name: thleagues-ui-dev
+    ports:
+      - "80:80" # Changed to 80 so you can just visit http://localhost
+    environment:
+      - HomeAPIUrl=http://localhost:5001
+      - AwayAPIUrl=http://localhost:5002

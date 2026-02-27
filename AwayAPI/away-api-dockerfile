@@ -1,0 +1,22 @@
+# 1. BUILD STAGE
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore dependencies (Optimization: Layer Caching)
+COPY ["AwayAPI.csproj", "AwayAPI"]
+RUN dotnet restore "AwayAPI.csproj"
+
+# Copy the rest of the code and build it
+COPY . .
+WORKDIR "/src/AwayAPI"
+RUN dotnet build "AwayAPI.csproj" -c Release -o /app/build
+
+# 2. PUBLISH STAGE
+FROM build AS publish
+RUN dotnet publish "AwayAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+# 3. FINAL RUNTIME STAGE
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "AwayAPI.dll"]

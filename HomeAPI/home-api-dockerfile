@@ -1,0 +1,22 @@
+# 1. BUILD STAGE
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore dependencies (Optimization: Layer Caching)
+COPY ["HomeAPI.csproj", "HomeAPI"]
+RUN dotnet restore "HomeAPI.csproj"
+
+# Copy the rest of the code and build it
+COPY . .
+WORKDIR "/src/HomeAPI"
+RUN dotnet build "HomeAPI.csproj" -c Release -o /app/build
+
+# 2. PUBLISH STAGE
+FROM build AS publish
+RUN dotnet publish "HomeAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+# 3. FINAL RUNTIME STAGE
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "HomeAPI.dll"]
