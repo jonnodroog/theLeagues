@@ -3,8 +3,9 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copy csproj and restore dependencies (Optimization: Layer Caching)
-COPY ["AwayAPI.csproj", "AwayAPI"]
-RUN dotnet restore "AwayAPI.csproj"
+COPY ["AwayAPI/AwayAPI.csproj", "AwayAPI/"]
+COPY ["Models/Models.csproj", "Models/"]
+RUN dotnet restore "AwayAPI/AwayAPI.csproj"
 
 # Copy the rest of the code and build it
 COPY . .
