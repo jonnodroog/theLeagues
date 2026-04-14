@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿@inject ILeagueService leagueService
+
+@page "/"
+@using TheLeaguesUI.Services.Interfaces
 
 <PageTitle>theLeagues</PageTitle>
 
@@ -8,11 +11,21 @@
         @{
             foreach(var league in leagues)
             {
-                <div class="leagueCard">
-
+                <div class="league-icon">
+                    <img src="@league.Logo" alt="@league.Name"/>
                 </div>
             }
         }
 
     </div>
 </div>
+
+@code{
+
+    private List<LeagueDTO> leagues = new();
+    protected override async Task OnInitializedAsync()
+        {
+            var getAllLeaguesOperationalResult = await leagueService.GetAllLeagues();
+            leagues = getAllLeaguesOperationalResult.Data ?? new();;
+        }
+}

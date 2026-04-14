@@ -8,12 +8,12 @@ namespace TheLeaguesUI.Services
 {
     public class LeagueService : ILeagueService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
         private List<LeagueDTO> _leagues = new();
 
-        public LeagueService(HttpClient httpClient)
+        public LeagueService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<IOperationalResult<List<LeagueDTO>>> GetAllLeagues()
@@ -22,7 +22,8 @@ namespace TheLeaguesUI.Services
             try
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, "/leagues");
-                using var response = await _httpClient.SendAsync(request);
+                var client = _httpClientFactory.CreateClient("HomeAPIClient");
+                using var response = await client.SendAsync(request);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -54,7 +55,8 @@ namespace TheLeaguesUI.Services
                 else
                 {
                     var request = new HttpRequestMessage(HttpMethod.Get, $"/leagues/{leagueId}");
-                    using var response = await _httpClient.SendAsync(request);
+                    var client = _httpClientFactory.CreateClient("HomeAPIClient");
+                    using var response = await client.SendAsync(request);
 
                     if (!response.IsSuccessStatusCode)
                     {

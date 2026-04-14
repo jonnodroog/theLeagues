@@ -1,18 +1,20 @@
 # 1. BUILD STAGE
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["TheLeaguesUI/TheLeaguesUI.csproj", "TheLeaguesUI/"]
-COPY ["Models/Models.csproj", "Models/"]
 
-RUN dotnet restore "TheLeaguesUI/TheLeaguesUI.csproj"
-
+# 2. Copy all files to docker container
 COPY . .
-WORKDIR "/src/TheLeaguesUI"
-RUN dotnet publish -c Release -o /app/publish
 
-# 2. SERVER STAGE (Nginx)
+# 3. Set the working directory i.e. where we are going to execute the publish
+WORKDIR "/src/TheLeaguesUI"
+
+# 4. Execute the publish
+RUN dotnet publish "TheLeaguesUI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+# 5. SERVER STAGE (Nginx)
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
+
 # Copy the compiled static files from the build stage
 COPY --from=build /app/publish/wwwroot .
 # Copy a custom nginx config 

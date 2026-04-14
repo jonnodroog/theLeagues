@@ -12,24 +12,18 @@ namespace Extensions
     {
         public static void RegisterServices(this WebAssemblyHostBuilder builder)
         {
+            Console.Write("HELOOOOOOOOOOOOOOOOO");
             #region Configure environment specific settings
-            var configBuilder = new ConfigurationBuilder()
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
-
-            builder.Services.Configure<UISettings>(builder.Configuration.GetSection("UISettings"));
-
-            var UISettings = builder.Configuration
-            .GetSection("UISettings")
-            .Get<UISettings>()
-            ?? throw new InvalidOperationException("UISettings could not be configured.");
+            //Not needed to explicitly load in an appsettings.json, this gets done by the Blazor framework. Simply reference it.
+            //var UISettings = builder.Configuration.GetSection("UISettings");
+            //builder.Services.Configure<UISettings>(UISettings);
             #endregion
 
             #region HTTP Client
-            builder.Services.AddScoped(sp =>
-                new HttpClient
+            builder.Services.AddHttpClient("HomeAPIClient",client => 
                 {
-                    BaseAddress = new Uri("https://theleagues.co.za")
+                    client.BaseAddress = new Uri(builder.Configuration["UISettings:HomeURL"] ?? "http://localhost:5001");
+                    // lient.BaseAddress = new Uri("https://externalapi.com");
                 });
             #endregion
 
