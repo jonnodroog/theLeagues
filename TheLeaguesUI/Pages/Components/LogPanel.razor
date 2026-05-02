@@ -1,0 +1,33 @@
+
+<table>
+    <tr>
+        <th>Team</th>
+        <th>Points</th>
+        <th>Played</th>
+        <th>Won</th>
+        <th>Lost</th>
+        <th>Draws</th>
+        <th>Goal Difference</th>
+        <th>Goals For</th>
+        <th>Goals Against</th>
+    </tr>
+    @foreach(var team in CurrentLeague.Teams)
+    {
+        <tr>
+            <td>@team.Name</td>
+            <td>@team.Points</td>
+            <td>@team.Played</td>
+            <td>@team.Win</td>
+            <td>@team.Lose</td>
+            <td>@team.Draw</td>
+            <td>@team.GoalsDiff</td>
+            <td>@team.GoalsFor</td>
+            <td>@team.GoalsAgainst</td>
+        </tr>
+    }
+</table>
+
+@code {
+    [Parameter]
+    public LeagueDTO CurrentLeague {get;set;} = new();
+}

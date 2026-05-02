@@ -1,0 +1,9 @@
+
+<div class="league-card @League.Name">
+    <img src="@League.Logo" alt="@League.Name logo" />
+</div>
+
+@code {
+    [Parameter]
+    public LeagueDTO League { get; set; } = new();
+}
