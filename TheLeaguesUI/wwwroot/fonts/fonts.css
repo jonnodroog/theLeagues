@@ -1,0 +1,12 @@
+@font-face{
+    font-family: share-tech;
+    src: url('../fonts/Share_Tech/ShareTech-Regular.ttf'); 
+
+}
+
+@font-face {
+  font-display: block;
+  font-family: "bootstrap-icons";
+  src: url("bootstrap-fonts/bootstrap-icons.woff") format("woff"),
+       url("bootstrap-fonts/bootstrap-icons.woff2") format("woff2");
+}

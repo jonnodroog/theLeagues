@@ -1,33 +1,33 @@
-
 <table>
-    <tr>
-        <th>Team</th>
-        <th>Points</th>
-        <th>Played</th>
-        <th>Won</th>
-        <th>Lost</th>
-        <th>Draws</th>
-        <th>Goal Difference</th>
-        <th>Goals For</th>
-        <th>Goals Against</th>
-    </tr>
-    @foreach(var team in CurrentLeague.Teams)
-    {
-        <tr>
-            <td>@team.Name</td>
-            <td>@team.Points</td>
-            <td>@team.Played</td>
-            <td>@team.Win</td>
-            <td>@team.Lose</td>
-            <td>@team.Draw</td>
-            <td>@team.GoalsDiff</td>
-            <td>@team.GoalsFor</td>
-            <td>@team.GoalsAgainst</td>
-        </tr>
-    }
+    <thead>
+        <th class="display-priority-high">Team</th>
+        <th class="display-priority-high">Played</th>
+        <th class="display-priority-low">Won</th>
+        <th class="display-priority-low">Lost</th>
+        <th class="display-priority-low">Draws</th>
+        <th class="display-priority-high">Goal Difference</th>
+        <th class="display-priority-low">Goals Scored</th>
+        <th class="display-priority-low">Goals Conceded</th>
+        <th class="display-priority-high">Points</th>
+    </thead>
+    <tbody>
+        @foreach (var team in CurrentLeague.Teams)
+        {
+        
+            <td class="display-priority-high">@team.Name</td>
+            <td class="display-priority-high">@team.Played</td>
+            <td class="display-priority-low">@team.Win</td>
+            <td class="display-priority-low">@team.Lose</td>
+            <td class="display-priority-low">@team.Draw</td>
+            <td class="display-priority-high">@team.GoalsDiff</td>
+            <td class="display-priority-low">@team.GoalsFor</td>
+            <td class="display-priority-low">@team.GoalsAgainst</td>
+            <td class="display-priority-high">@team.Points</td>
+        }
+    </tbody>
 </table>
 
 @code {
     [Parameter]
-    public LeagueDTO CurrentLeague {get;set;} = new();
+    public LeagueDTO CurrentLeague { get; set; } = new();
 }

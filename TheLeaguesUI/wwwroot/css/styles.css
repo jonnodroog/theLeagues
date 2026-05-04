@@ -1,40 +1,163 @@
-html, body {
-    margin: 5vh 5vw;
-    padding: 0;
-    max-height: 100vh;
-    max-width: 100vw;
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: share-tech;
+}
+
+.page {
 }
 
 .container-fluid {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0 4%;
+  box-sizing: border-box;
 }
+
 /* NAVBAR */
 .navbar {
-  background: greenyellow;
+  border-radius: 2px;
+  justify-content: space-around;
+  border-bottom: solid 1px rgba(50, 50, 93, 0.25);
+}
+
+.social-media-icons {
   display: flex;
   flex-direction: row;
-  margin-bottom: 5vh;
+  align-items: center;
+  gap: 15px;
 }
+
+.social-media-icons .bi {
+  transition: 
+    transform 0.6s ease,
+    filter 0.6s ease;
+}
+.social-media-icons .bi:hover {
+  cursor: pointer;
+  transform: scale(1.05) translateY(-3px);
+  filter: brightness(1.1);
+}
+
+.social-media-icons .bi-instagram:hover {
+  color: #833AB4;
+}
+
+.social-media-icons .bi-twitter-x:hover {
+  color: #1DA1F2;
+}
+
+.social-media-icons .bi-tiktok:hover {
+  color: #25F4EE;
+}
+
+.social-media-icons .bi-youtube:hover {
+  color: #FF0000;
+}
+
 
 /* MAIN */
 .main {
-  background: blue;
+  flex-grow: 1;
+  display: flex;
+    overflow: hidden;
+}
+
+.content {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
 }
 
 /* LEAGUE CARDS */
-
 .league-cards {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5% 0;
+  flex: 0 0 15%; 
   height: 100%;
-  gap: 5vh;
 }
 
 .league-card {
-  display: flex;
-  flex-direction: column;
-}
-.league-card img
-{
-  width: 5%;
+  width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  transition:
+    transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    box-shadow 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+.league-card:hover {
+  transform: translateX(10px);
+  cursor: pointer;
+}
+
+.league-card img {
+ height: clamp(40px, 8vh, 120px); 
+ width: auto;
+ object-fit: contain;
+}
+
+/* LOG PANEL*/
+.log-panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.log-panel p {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-panel table{
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.log-panel thead {
+  width: 100%;
+  height: fit-content;
+  background-color: yellow;
+  text-transform: uppercase;
+}
+
+.log-panel thead th {
+  text-align: center;
+  padding: 1%;
+}
+
+.log-panel tbody {
+  width: 100%;
+  height: 100%;
+}
+
+.log-panel tbody td{
+  vertical-align: center;
+}
+
+/*FOR SMALL SCREENS ONLY */
+@media (max-width: 768px){
+  .display-priority-low{
+    display: none;
+  }
+  .log-panel table{
+  font-size: 0.8rem;
+}
+}
+
+/* FOR MEDIUM SCREENS ONLY */
+
+/* FOR SMALL AND MEDIUM SCREENS */

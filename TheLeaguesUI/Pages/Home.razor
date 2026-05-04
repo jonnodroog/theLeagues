@@ -5,25 +5,44 @@
 @using TheLeaguesUI.Services.Interfaces
 
 <PageTitle>theLeagues</PageTitle>
-
-<div class="league-cards">
-    @{
-        foreach (var league in leagues)
-        {
-            <LeagueCard League="league" />
+<div class="content">
+    <div class="league-cards">
+        @{
+            foreach (var league in leagues)
+            {
+                <LeagueCard League="league" />
+            }
         }
-    }
-</div>
-<div class="log-panel">
-    <LogPanel />
+    </div>
+    <div class="log-panel">
+        @if (SelectedLeague.Teams.Count > 0)
+        {
+            <LogPanel CurrentLeague="@SelectedLeague" />
+        }
+        else if (SelectedLeague is null)
+        {
+            <p>Select a league from the list on the left</p>
+        }
+        else
+        {
+            <p>Whoops. No data to display for @SelectedLeague.Name (sorry)</p>
+        }
+    </div>
 </div>
 
 @code {
 
     private List<LeagueDTO> leagues = new();
+    private LeagueDTO SelectedLeague;
     protected override async Task OnInitializedAsync()
     {
         var getAllLeaguesOperationalResult = await leagueService.GetAllLeagues();
         leagues = getAllLeaguesOperationalResult.Data ?? new(); ;
+        SelectedLeague = leagues.First();
+    }
+
+    private void OnLeagueCardHover(LeagueDTO hoveredLeague)
+    {
+        SelectedLeague = hoveredLeague;
     }
 }
