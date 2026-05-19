@@ -8,6 +8,6 @@ builder.RegisterServices();
 var app = builder.Build();
 app.RegisterMiddleware();
 
-app.MapGet("/", () => "Away API is live.");
+app.MapGet("/", () => "Away API is live lelelele.");
 
 app.Run();

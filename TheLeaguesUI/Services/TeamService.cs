@@ -8,12 +8,14 @@ namespace TheLeaguesUI.Services
 {
     public class TeamService : ITeamService
     {
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly HttpClient _httpClient;
         private List<TeamDTO> _teams = new();
 
-        public TeamService(HttpClient httpClient)
+        public TeamService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
+            _httpClient = _httpClientFactory.CreateClient("HomeAPIClient");
         }
 
         public async Task<IOperationalResult<List<TeamDTO>>> GetAllTeams()
@@ -86,18 +88,19 @@ namespace TheLeaguesUI.Services
                 }
                 else
                 {
-                    var request = new HttpRequestMessage(HttpMethod.Get, $"/leagues/{leagueId}");
+                    var request = new HttpRequestMessage(HttpMethod.Get, $"team/league-id={leagueId}");
                     using var response = await _httpClient.SendAsync(request);
 
-                    if (!response.IsSuccessStatusCode)
+                    if (response.IsSuccessStatusCode)
                     {
+                        string rawContent = await response.Content.ReadAsStringAsync();
                         using var responseStream = await response.Content.ReadAsStreamAsync();
                         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                        var leagueFetched = await JsonSerializer.DeserializeAsync<LeagueDTO>(responseStream, options) ?? new();
+                        var teamsFetched = await JsonSerializer.DeserializeAsync<List<TeamDTO>>(responseStream, options) ?? new();
 
-                        if (leagueFetched is not null && leagueFetched.Teams.Count > 0)
+                        if (teamsFetched?.Count > 0)
                         {
-                            return OperationResult<List<TeamDTO>>.Success(leagueFetched.Teams ?? new());
+                            return OperationResult<List<TeamDTO>>.Success(teamsFetched ?? new());
 
                         }
                     }

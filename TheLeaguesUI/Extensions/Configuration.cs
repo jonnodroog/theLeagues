@@ -12,11 +12,20 @@ namespace Extensions
     {
         public static void RegisterServices(this WebAssemblyHostBuilder builder)
         {
-            Console.Write("HELOOOOOOOOOOOOOOOOO");
             #region Configure environment specific settings
             //Not needed to explicitly load in an appsettings.json, this gets done by the Blazor framework. Simply reference it.
             //var UISettings = builder.Configuration.GetSection("UISettings");
             //builder.Services.Configure<UISettings>(UISettings);
+            var configBuilder = new ConfigurationBuilder()
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
+
+            builder.Services.Configure<UISettings>(builder.Configuration.GetSection("UISettings"));
+
+            var awaySettings = builder.Configuration
+            .GetSection("UISettings")
+            .Get<UISettings>()
+            ?? throw new InvalidOperationException("UISettings could not be configured.");
             #endregion
 
             #region HTTP Client

@@ -1,4 +1,5 @@
 ﻿@inject ILeagueService leagueService
+@inject ITeamService teamService
 
 @page "/"
 @using TheLeaguesUI.Pages.Components
@@ -8,9 +9,11 @@
 <div class="content">
     <div class="league-cards">
         @{
-            foreach (var league in leagues)
+            foreach (var league in _leagues)
             {
-                <LeagueCard League="league" />
+                <div @onmouseover="() => HandleLeagueCardClick(league)" @onclick="() => HandleLeagueCardClick(league)">
+                    <LeagueCard League="league" />
+                </div>
             }
         }
     </div>
@@ -32,17 +35,39 @@
 
 @code {
 
-    private List<LeagueDTO> leagues = new();
-    private LeagueDTO SelectedLeague;
+    private List<LeagueDTO> _leagues = new();
+    private List<TeamDTO> _teams = new();
+    private LeagueDTO SelectedLeague = new();
     protected override async Task OnInitializedAsync()
     {
         var getAllLeaguesOperationalResult = await leagueService.GetAllLeagues();
-        leagues = getAllLeaguesOperationalResult.Data ?? new(); ;
-        SelectedLeague = leagues.First();
+        _leagues = getAllLeaguesOperationalResult.Data ?? new(); ;
+        SelectedLeague = _leagues.First();
+
+        foreach (var league in _leagues)
+        {
+            var getAllTeamsInLeagueOperationalResult = await teamService.GetAllTeamsInLeague(league.Id);
+            var teamsRetrieved = getAllTeamsInLeagueOperationalResult.Data;
+            
+            if (teamsRetrieved is not null && teamsRetrieved.Count() > 0)
+            {
+                foreach (var team in teamsRetrieved)
+                {
+                    _teams.Add(team);
+                }
+                
+                //Sorting teams the less performant way
+                //league.Teams = teamsRetrieved;
+                //league.Teams.Sort((x,y) => x.CurrentLeagueRank.CompareTo(y.CurrentLeagueRank));
+
+                //Sorting teams the more performant way
+                league.Teams = teamsRetrieved.OrderBy(x => x.CurrentLeagueRank).ThenByDescending(y => y.GoalsDiff).ThenByDescending(z => z.GoalsFor).ToList();
+            }
+        }
     }
 
-    private void OnLeagueCardHover(LeagueDTO hoveredLeague)
+    private void HandleLeagueCardClick(LeagueDTO league)
     {
-        SelectedLeague = hoveredLeague;
+        SelectedLeague = league;
     }
 }

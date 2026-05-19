@@ -6,8 +6,8 @@ body {
   font-family: share-tech;
 }
 
-.page {
-}
+/* .page {
+} */
 
 .container-fluid {
   display: flex;
@@ -71,6 +71,8 @@ body {
   align-items: stretch;
   width: 100%;
   height: 100%;
+  gap: 15px;
+  padding-bottom: 1%;
 }
 
 /* LEAGUE CARDS */
@@ -123,8 +125,8 @@ body {
 .log-panel table{
   width: 100%;
   height: 100%;
-  border-collapse: collapse;
   font-size: 1rem;
+  border-collapse: collapse;
 }
 
 .log-panel thead {
@@ -136,7 +138,6 @@ body {
 
 .log-panel thead th {
   text-align: center;
-  padding: 1%;
 }
 
 .log-panel tbody {
@@ -145,7 +146,30 @@ body {
 }
 
 .log-panel tbody td{
-  vertical-align: center;
+  text-align: center;
+}
+
+.log-panel tbody td:first-child{
+  text-align: left;
+  font-weight: bold;
+}
+.log-panel tbody td:nth-child(2){
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  white-space: nowrap;
+}
+.log-panel thead th:first-child{
+  text-align: left;
+  font-weight: bold;
+}
+.log-panel thead th:nth-child(2){
+  text-align: left;
+}
+
+.log-panel tbody tr{
+  border-bottom: solid 0.5px lightgray ;
 }
 
 /*FOR SMALL SCREENS ONLY */
