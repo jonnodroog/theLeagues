@@ -88,7 +88,7 @@ namespace AwayAPI.Services
                     await _context.SaveChangesAsync(ct);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

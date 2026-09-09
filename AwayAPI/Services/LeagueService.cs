@@ -64,11 +64,8 @@ namespace AwayAPI.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"CRITICAL ERROR in {ex.Source}: {ex.ToString()}");
-                throw;
-            }
-            finally
-            {
                 Console.WriteLine("\n\nALL LEAGUES HAVE BEEN  SUCCESSFULLY ADDED\n\n");
+                throw;
             }
         }
 
