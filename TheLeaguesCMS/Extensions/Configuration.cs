@@ -34,17 +34,24 @@ namespace TheLeaguesCMS.Extensions
                 options.Events.OnTicketReceived = context =>
                 {
                     var allowedEmail = builder.Configuration["ThirdPartyAuthentication:Google:AllowedEmail"] ?? throw new InvalidOperationException("Allowed email is not configured");
+                    if(String.IsNullOrWhiteSpace(allowedEmail))
+                    {
+                        throw new InvalidOperationException("AllowedEmail is not configured.");
+                    }
 
                     var email = context.Principal?.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
 
                     if (!string.Equals(email, allowedEmail, StringComparison.OrdinalIgnoreCase))
                     {
                         context.Fail("Unauthorised email address");
+                        context.Response.Redirect("/access-denied");
+                        context.HandleResponse();
                     }
 
                     return Task.CompletedTask;
                 };
             });
+
             builder.Services.AddAuthorization();
 
             builder.Services.AddCascadingAuthenticationState();
