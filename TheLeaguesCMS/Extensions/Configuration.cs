@@ -2,7 +2,9 @@ using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.EntityFrameworkCore;
 using TheLeaguesCMS.Components;
+using TheLeaguesCMS.DAL;
 
 namespace TheLeaguesCMS.Extensions
 {
@@ -53,6 +55,22 @@ namespace TheLeaguesCMS.Extensions
             });
 
             builder.Services.AddAuthorization();
+
+            #region DAL
+            var host = builder.Configuration["THELEAGUES_DB_HOST"];
+            var port = builder.Configuration["THELEAGUES_DB_PORT"];
+            var db = builder.Configuration["THELEAGUES_DB_NAME"];
+            var user = builder.Configuration["THELEAGUES_ROOT_USER"];
+            var pass = builder.Configuration["THELEAGUES_ROOT_PASSWORD"];
+
+            var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
+            builder.Services.AddDbContext<TheLeaguesCMSDBContext>(options =>
+                {   
+                    options.UseNpgsql(connectionString);
+                });  
+            builder.Services.AddHealthChecks()
+                            .AddNpgSql(connectionString!, name: "theleagues-db");
+            #endregion
 
             builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddHttpContextAccessor();

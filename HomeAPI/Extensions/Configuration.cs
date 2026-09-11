@@ -22,7 +22,7 @@ namespace HomeAPI.Extensions
                 builder.Services.Configure<HomeSettings>(builder.Configuration.GetSection("HomeSettings"));
             #endregion
 
-             #region HTTP Client
+            #region HTTP Client
             builder.Services.AddHttpClient();
             #endregion
             
