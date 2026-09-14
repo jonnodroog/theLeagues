@@ -26,7 +26,7 @@ services:
       theleagues-db-container:
         condition: service_healthy
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_HTTP_PORTS=8080
       - THELEAGUES_DB_HOST=theleagues-db-container
       - THELEAGUES_DB_PORT=5432
@@ -45,7 +45,7 @@ services:
       theleagues-db-container:
         condition: service_healthy
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_HTTP_PORTS=8080
       - THELEAGUES_DB_HOST=theleagues-db-container
       - THELEAGUES_DB_PORT=5432
@@ -65,3 +65,25 @@ services:
     environment:
       - HomeAPIUrl=http://localhost:5001
       - AwayAPIUrl=http://localhost:5002
+
+  theleagues-cms-container:
+    build:
+      context: .
+      dockerfile: TheLeaguesCMS/cms-dockerfile
+    container_name: theleagues-cms-dev
+    depends_on:
+      theleagues-db-container:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_HTTP_PORTS=8080
+      - THELEAGUES_DB_HOST=theleagues-db-container
+      - THELEAGUES_DB_PORT=5432
+      - THELEAGUES_DB_NAME=${THELEAGUES_DB_NAME}
+      - THELEAGUES_ROOT_USER=${THELEAGUES_ROOT_USER}
+      - THELEAGUES_ROOT_PASSWORD=${THELEAGUES_ROOT_PASSWORD}
+       -ThirdPartyAuthentication__Google__ClientId=${GOOGLE_CLIENT_ID}
+      - ThirdPartyAuthentication__Google__ClientSecret=${GOOGLE_CLIENT_SECRET}
+      - ThirdPartyAuthentication__Google__AllowedEmail=${GOOGLE_ALLOWED_EMAIL}
+    ports:
+      - "5003:8080"

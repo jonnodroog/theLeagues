@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using TheLeaguesCMS.Components;
 using TheLeaguesCMS.DAL;
+using TheLeaguesCMS.Extensios;
+using TheLeaguesCMS.Services;
+using TheLeaguesCMS.Services.Interfaces;
 
 namespace TheLeaguesCMS.Extensions
 {
@@ -16,6 +19,15 @@ namespace TheLeaguesCMS.Extensions
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+                #region Configure environment specific settings
+                var configBuilder = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
+                            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
+
+                builder.Services.Configure<TheLeaguesCMSSettings>(builder.Configuration.GetSection("TheLeaguesCMSSettings"));
+            #endregion
+
+            #region AuthN/AuthZ
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -56,6 +68,8 @@ namespace TheLeaguesCMS.Extensions
 
             builder.Services.AddAuthorization();
 
+            #endregion
+
             #region DAL
             var host = builder.Configuration["THELEAGUES_DB_HOST"];
             var port = builder.Configuration["THELEAGUES_DB_PORT"];
@@ -64,7 +78,7 @@ namespace TheLeaguesCMS.Extensions
             var pass = builder.Configuration["THELEAGUES_ROOT_PASSWORD"];
 
             var connectionString = $"Host={host};Port={port};Database={db};Username={user};Password={pass};";
-            builder.Services.AddDbContext<TheLeaguesCMSDBContext>(options =>
+            builder.Services.AddDbContextFactory<TheLeaguesCMSDBContext>(options =>
                 {   
                     options.UseNpgsql(connectionString);
                 });  
@@ -72,6 +86,12 @@ namespace TheLeaguesCMS.Extensions
                             .AddNpgSql(connectionString!, name: "theleagues-db");
             #endregion
 
+            #region Declare custom services
+            builder.Services.AddScoped<ILeagueService, LeagueService>();
+            builder.Services.AddScoped<ITeamService, TeamService>();
+            builder.Services.AddScoped<IPlayerService, PlayerService>();
+            #endregion
+            
             builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddHttpContextAccessor();
         }

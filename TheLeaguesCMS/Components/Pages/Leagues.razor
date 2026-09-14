@@ -1,0 +1,83 @@
+@page "/leagues"
+@attribute [Authorize]
+@inject ILeagueService LeagueService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Leagues</PageTitle>
+
+<div class="leagues-content-container">
+    <div class="leagues-content-toolbar">
+        <a href="/leagues/new" class="leagues-content-toolbar-add-button">Add</a>
+    </div>
+    <div class="leagues-content-table">
+        @if(_leagues is null)
+        {
+            <p>Fetching leagues..</p>
+        }
+        else if(!_leagues.Any())
+        {
+            <p>No leagues found.</p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Logo</th>
+                    @* <th>Teams</th> *@
+                </thead>
+                <tbody>
+                    @foreach(var league in _leagues)
+                    {
+                        <td>@league.Id</td>
+                        <td>@league.Name</td>
+                        <td>@league.Country</td>
+                        <td>@league.Logo</td>
+                        @* <td>@NavigationManager.NavigateTo($"/teams/leagueId={league.Id}")</td> *@
+                        <td>
+                            <a href="$/leagues/{@league.Id}" class="leagues-content-table-edit-btn">Edit</a>
+                            <a class="leagues-content-table-delete-btn" "@onclick=()=>DeleteLeagueAsync(@league)"">Delete</a>
+                        </td>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code
+{
+    private IEnumerable<LeagueDTO>? _leagues;
+    private string _errorMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAllLeaguesAsync();
+    }
+
+    private async Task LoadAllLeaguesAsync()
+    {
+        try
+        {
+            _leagues = await LeagueService.GetAllLeaguesAsync();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Failed to load all leagues: " + ex.Message;
+        }
+    }
+
+    private async Task DeleteLeagueAsync(LeagueDTO league)
+    {
+        try
+        {
+            await LeagueService.DeleteLeague(league.Id);
+            await LoadAllLeaguesAsync();
+        }catch(Exception ex)
+        {
+            _errorMessage = $"Unable to delete league - {league.Name}: {ex.Message}";
+        }
+    }
+}
