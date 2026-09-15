@@ -1,0 +1,83 @@
+@page "/teams"
+@attribute [Authorize]
+@inject ITeamService TeamService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Teams</PageTitle>
+
+<div class="teams-content-container">
+    <div class="teams-content-toolbar">
+        <a href="/teams/new" class="teams-content-toolbar-add-button">Add</a>
+    </div>
+    <div class="teams-content-table">
+        @if(_teams is null)
+        {
+            <p>Fetching teams..</p>
+        }
+        else if(!_teams.Any())
+        {
+            <p>No teams found.</p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Logo</th>
+                    @* <th>Teams</th> *@
+                </thead>
+                <tbody>
+                    @foreach(var team in _teams)
+                    {
+                        <td>@team.Id</td>
+                        <td>@team.Name</td>
+                        <td>@team.Country</td>
+                        <td>@team.Logo</td>
+                        @* <td>@NavigationManager.NavigateTo($"/teams/leagueId={league.Id}")</td> *@
+                        <td>
+                            <a href=@($"/leagues/{@team.Id}") class="teams-content-table-edit-btn">Edit</a>
+                            <a class="teams-content-table-delete-btn" "@onclick=()=>DeleteTeamAsync(@team)"">Delete</a>
+                        </td>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code
+{
+    private IEnumerable<TeamDTO>? _teams;
+    private string _errorMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAllTeamsAsync();
+    }
+
+    private async Task LoadAllTeamsAsync()
+    {
+        try
+        {
+            _teams = await TeamService.GetAllTeamsAsync();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Failed to load all teams: " + ex.Message;
+        }
+    }
+
+    private async Task DeleteTeamAsync(TeamDTO team)
+    {
+        try
+        {
+            await TeamService.DeleteTeam(team.Id);
+            await LoadAllTeamsAsync();
+        }catch(Exception ex)
+        {
+            _errorMessage = $"Unable to delete team - {team.Name}: {ex.Message}";
+        }
+    }
+}

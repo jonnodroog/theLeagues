@@ -22,25 +22,29 @@
         {
             <table>
                 <thead>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Logo</th>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Logo</th>
+                    </tr>
                     @* <th>Teams</th> *@
                 </thead>
                 <tbody>
+                    <tr>
                     @foreach(var league in _leagues)
                     {
                         <td>@league.Id</td>
                         <td>@league.Name</td>
-                        <td>@league.Country</td>
-                        <td>@league.Logo</td>
+                        <td>@league.Country?.Name</td>
+                        <td><img src="@league.Logo" alt="@league.Name logo" /></td>
                         @* <td>@NavigationManager.NavigateTo($"/teams/leagueId={league.Id}")</td> *@
                         <td>
-                            <a href="$/leagues/{@league.Id}" class="leagues-content-table-edit-btn">Edit</a>
+                            <a href="@($"/leagues/{@league.Id}")" class="leagues-content-table-edit-btn">Edit</a>
                             <a class="leagues-content-table-delete-btn" "@onclick=()=>DeleteLeagueAsync(@league)"">Delete</a>
                         </td>
                     }
+                    </tr>
                 </tbody>
             </table>
         }

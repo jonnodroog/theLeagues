@@ -1,0 +1,84 @@
+@page "/players"
+@attribute [Authorize]
+@inject IPlayerService PlayerService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Players</PageTitle>
+
+<div class="teams-content-container">
+    <div class="teams-content-toolbar">
+        <a href="/players/new" class="teams-content-toolbar-add-button">Add</a>
+    </div>
+    <div class="teams-content-table">
+        @if(_players is null)
+        {
+            <p>Fetching players..</p>
+        }
+        else if(!_players.Any())
+        {
+            <p>No players found.</p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Logo</th>
+                    @* <th>Teams</th> *@
+                </thead>
+                <tbody>
+                    @foreach(var player in _players)
+                    {
+                        <td>@player.Id</td>
+                        <td>@player.FirstName</td>
+                        <td>@player.LastName</td>
+                        <td>@player.Nationality</td>
+                        <td>@player.Number</td>
+                        @* <td>@NavigationManager.NavigateTo($"/teams/leagueId={league.Id}")</td> *@
+                        <td>
+                            <a href=@($"/leagues/{@player.Id}") class="teams-content-table-edit-btn">Edit</a>
+                            <a class="teams-content-table-delete-btn" "@onclick=()=>DeletePlayerAsync(@player)"">Delete</a>
+                        </td>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code
+{
+    private IEnumerable<PlayerDTO>? _players;
+    private string _errorMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAllPlayersAsync();
+    }
+
+    private async Task LoadAllPlayersAsync()
+    {
+        try
+        {
+            _players = await PlayerService.GetAllPlayersAsync();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Failed to load all players: " + ex.Message;
+        }
+    }
+
+    private async Task DeletePlayerAsync(PlayerDTO player)
+    {
+        try
+        {
+            await PlayerService.DeletePlayer(player.Id);
+            await LoadAllPlayersAsync();
+        }catch(Exception ex)
+        {
+            _errorMessage = $"Unable to delete player - {player.Name}: {ex.Message}";
+        }
+    }
+}
